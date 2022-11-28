@@ -33,4 +33,12 @@ public class Obstacle {
         gc.drawImage(wall ,y,x, 50,50   );
     }
 
+    public int getX(){
+        return x;
+    }
+
+    public int getY(){
+        return y;
+    }
+
 }

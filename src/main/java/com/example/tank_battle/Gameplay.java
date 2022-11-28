@@ -227,8 +227,15 @@ public class Gameplay implements Initializable {
     private void doKeyboardActions() {
 
         if (Wpressed) {
-
+            boolean flag= true;
             if(player1.pos.x<=canvas.getWidth() && player1.pos.x>0 && player1.pos.y<=canvas.getHeight() && player1.pos.y>0)
+                /*for(int i=0; i< obstacles.length; i++){
+                    for(int j=0; j<obstacles[0].length; j++){
+                        if(player1.pos.x==obstacles[i][j].getX()){
+                            flag = false;
+                        }
+                    }
+                }*/
                 player1.moveForward();
             if(player1.pos.x>canvas.getWidth()){
                 player1.pos.x=15;

@@ -28,7 +28,7 @@ public class Player {
         gc.save();
         gc.translate(pos.x, pos.y);
         gc.rotate(90+direction.getAngle());
-        gc.drawImage(tank, -25,-25, 50,50);
+        gc.drawImage(tank, -25,-25, 40,40);
         gc.restore();
     }
 

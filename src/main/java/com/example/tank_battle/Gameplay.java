@@ -1,6 +1,7 @@
 package com.example.tank_battle;
 
 import com.example.tank_battle.model.Bullet;
+import com.example.tank_battle.model.Obstacle;
 import com.example.tank_battle.model.Player;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -11,7 +12,6 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -35,12 +35,21 @@ public class Gameplay implements Initializable {
     private ArrayList<Bullet> bulletsPlayer2;
 
     private Image backgroud;
+
+    private Obstacle[][] obstacles;
     
-    //Estados de las teclas
-    boolean Wpressed = false;
-    boolean Apressed = false;
-    boolean Spressed = false;
-    boolean Dpressed = false;
+    //Estados de las teclas para el juagador 1
+    private boolean Wpressed = false;
+    private boolean Apressed = false;
+    private boolean Spressed = false;
+    private boolean Dpressed = false;
+
+    //Estados de las teclas para el jugador 2
+
+    private boolean upPressed =  false;
+    private boolean downPressed = false;
+    private boolean rightPressed = false;
+    private boolean leftPressed = false;
 
 
     @Override
@@ -54,6 +63,33 @@ public class Gameplay implements Initializable {
         canvas.setOnKeyPressed(this::onKeyPressed);
         canvas.setOnKeyReleased(this::onKeyReleased);
 
+        //Initializing the matrix
+
+
+        Integer obstaclesInMap[][] = new Integer[][]{{null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null},
+                {null, 1, null,null, 1, null, null, null,null,null,null,null,null,null,null,  1, null, null,  1, null },
+                {null, 1, null,null, 1, null, null, null,null,null,null,null,null,null,null, 1, null, null,  1, null },
+                {null, 1, null,null,1, null, null, null,null,null,null,null,null,null,null, 1, null, null,1, null },
+                {null, null, 1,1, null,  null,  1, null,  1, null, null,  1, null, 1, null, null,  1, 1, null, null},
+                {null, null,1, 1, null,  null, 1, 1, 1, null, null, 1,1 , 1, null, null, 1, 1, null, null},
+                {null, null,1, 1, null,  null,  1, null, 1, null, null,  1, null, 1, null, null,  1, 1, null, null},
+                {null, 1, null,null, 1, null, null, null,null,null,null,null,null,null,null,  1, null, null,  1, null },
+                {null, 1, null,null, 1, null, null, null,null,null,null,null,null,null,null,  1, null, null,  1, null },
+                {null, 1, null,null, 1, null, null, null,null,null,null,null,null,null,null, 1, null, null,  1, null },
+                {null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null},
+                {null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null}};
+
+        obstacles = new Obstacle[12][20];
+        for (int i = 0; i < obstacles.length ; i++) {
+            for (int j = 0; j < obstacles[0].length ; j++) {
+                if(obstaclesInMap[i][j] == null){
+                    obstacles[i][j] = null;
+                } else {
+                    obstacles[i][j] = new Obstacle(canvas, gc, i, j);
+                }
+            }
+        }
+
         player1 = new Player("Juancho", canvas, "tank1.png");
         player2 = new Player("Mateo", canvas, "tank2.png");
         draw();
@@ -64,13 +100,20 @@ public class Gameplay implements Initializable {
                 () -> {
                     while (isRunning) {
                         Platform.runLater(() -> {
-                            //gc.setFill();
-                           //gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
                             gc.save();
                             gc.drawImage(backgroud, 0, 0, canvas.getWidth(), canvas.getHeight());
                             gc.restore();
                             player1.draw();
                             player2.draw();
+
+                            for (int i = 0; i < obstacles.length; i++) {
+                                for (int j = 0; j < obstacles[0].length ; j++) {
+                                    if (obstacles[i][j] != null) {
+                                        obstacles[i][j].draw();
+                                    }
+                                }
+                            }
+
                             /*for (int i = 0; i < enemies.size() ; i++) {
                                 enemies.get(i).draw();
                             }*/
@@ -104,6 +147,7 @@ public class Gameplay implements Initializable {
     }
 
     private void onKeyReleased(KeyEvent keyEvent) {
+
         if (keyEvent.getCode() == KeyCode.W) {
             Wpressed = false;
         }
@@ -116,9 +160,22 @@ public class Gameplay implements Initializable {
         if (keyEvent.getCode() == KeyCode.D) {
             Dpressed = false;
         }
+        if (keyEvent.getCode() == KeyCode.UP){
+            upPressed = false;
+        }
+        if (keyEvent.getCode() == KeyCode.DOWN){
+            downPressed = false;
+        }
+        if (keyEvent.getCode() == KeyCode.RIGHT){
+            rightPressed = false;
+        }
+        if (keyEvent.getCode() == KeyCode.LEFT){
+            leftPressed = false;
+        }
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
+        //System.out.println(keyEvent.getCode());
         if (keyEvent.getCode() == KeyCode.W) {
             Wpressed = true;
         }
@@ -131,6 +188,18 @@ public class Gameplay implements Initializable {
         if (keyEvent.getCode() == KeyCode.D) {
             Dpressed = true;
         }
+        if (keyEvent.getCode() == KeyCode.UP){
+            upPressed = true;
+        }
+        if (keyEvent.getCode() == KeyCode.DOWN){
+            downPressed = true;
+        }
+        if (keyEvent.getCode() == KeyCode.RIGHT){
+            rightPressed = true;
+        }
+        if (keyEvent.getCode() == KeyCode.LEFT){
+            leftPressed = true;
+        }
         /*if(keyEvent.getCode() == KeyCode.SPACE) {
             Bullet bullet = new Bullet(canvas, gc, new Vector(avatar.pos.x, avatar.pos.y ), new Vector(2*avatar.direction.x, 2*avatar.direction.y ));
             bullets.add(bullet);
@@ -138,25 +207,84 @@ public class Gameplay implements Initializable {
     }
 
     private void doKeyboardActions() {
+
         if (Wpressed) {
-            if(player1.pos.x<=canvas.getWidth() && player1.pos.x>0)
+
+            if(player1.pos.x<=canvas.getWidth() && player1.pos.x>0 && player1.pos.y<=canvas.getHeight() && player1.pos.y>0)
                 player1.moveForward();
+            if(player1.pos.x>canvas.getWidth()){
+                player1.pos.x=15;
+            }
+            if(player1.pos.x<=0){
+                player1.pos.x=canvas.getWidth();
+            }
+
+            if(player1.pos.y>canvas.getHeight()){
+                player1.pos.y=canvas.getHeight();
+            }
+
+            if(player1.pos.y<=0) player1.pos.y=5;
 
         }
         if (Apressed) {
-                player1.changeAngle(-6);
+            player1.changeAngle(-6);
         }
         if (Spressed) {
-            if(player1.pos.x<=canvas.getWidth() && player1.pos.x>0)
+
+            if(player1.pos.x<=canvas.getWidth() && player1.pos.x>0 && player1.pos.y<=canvas.getHeight() && player1.pos.y>0)
                 player1.moveBackward();
-            else
-                player1.pos.x-=2;
+            if(player1.pos.x>canvas.getWidth()){
+                player1.pos.x=15;
+
+            }
+            if(player1.pos.x<=0){
+                player1.pos.x=canvas.getWidth();
+
+            }
+
+            if(player1.pos.y>canvas.getHeight()){
+                player1.pos.y=canvas.getHeight();
+            }
+
+            if(player1.pos.y<=0) player1.pos.y=5;
+
         }
         if (Dpressed) {
+            player1.changeAngle(6);
+        }
+        if (upPressed) {
+            player2.moveForward();
 
-                player1.changeAngle(6);
+        }
+        if (leftPressed) {
+            player2.changeAngle(-6);
+        }
+        if (downPressed) {
+            player2.moveBackward();
+        }
+        if (rightPressed) {
+            player2.changeAngle(6);
         }
     }
+
+    /*private void onKeyPressedPlayer2(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.) {
+            Wpressed = true;
+        }
+        if (keyEvent.getCode() == KeyCode.A) {
+            Apressed = true;
+        }
+        if (keyEvent.getCode() == KeyCode.S) {
+            Spressed = true;
+        }
+        if (keyEvent.getCode() == KeyCode.D) {
+            Dpressed = true;
+        }
+        *//*if(keyEvent.getCode() == KeyCode.SPACE) {
+            Bullet bullet = new Bullet(canvas, gc, new Vector(avatar.pos.x, avatar.pos.y ), new Vector(2*avatar.direction.x, 2*avatar.direction.y ));
+            bullets.add(bullet);
+        }*//*
+    }*/
 
 
 }

@@ -253,14 +253,42 @@ public class Gameplay implements Initializable {
             player1.changeAngle(6);
         }
         if (upPressed) {
-            player2.moveForward();
+            if(player2.pos.x<=canvas.getWidth() && player2.pos.x>0 && player2.pos.y<=canvas.getHeight() && player2.pos.y>0)
+                player2.moveForward();
+            if(player2.pos.x>canvas.getWidth()){
+                player2.pos.x=15;
+            }
+            if(player2.pos.x<=0){
+                player2.pos.x=canvas.getWidth();
+            }
+
+            if(player2.pos.y>canvas.getHeight()){
+                player2.pos.y=canvas.getHeight();
+            }
+
+            if(player2.pos.y<=0) player2.pos.y=5;
 
         }
         if (leftPressed) {
             player2.changeAngle(-6);
         }
         if (downPressed) {
-            player2.moveBackward();
+            if(player2.pos.x<=canvas.getWidth() && player2.pos.x>0 && player2.pos.y<=canvas.getHeight() && player2.pos.y>0)
+                player2.moveBackward();
+            if(player2.pos.x>canvas.getWidth()){
+                player2.pos.x=15;
+
+            }
+            if(player2.pos.x<=0){
+                player2.pos.x=canvas.getWidth();
+
+            }
+
+            if(player2.pos.y>canvas.getHeight()){
+                player2.pos.y=canvas.getHeight();
+            }
+
+            if(player2.pos.y<=0) player2.pos.y=5;
         }
         if (rightPressed) {
             player2.changeAngle(6);

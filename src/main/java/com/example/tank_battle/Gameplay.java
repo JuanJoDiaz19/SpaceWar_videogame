@@ -3,6 +3,7 @@ package com.example.tank_battle;
 import com.example.tank_battle.model.Bullet;
 import com.example.tank_battle.model.Obstacle;
 import com.example.tank_battle.model.Player;
+import com.example.tank_battle.model.Vector;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -63,19 +64,22 @@ public class Gameplay implements Initializable {
         canvas.setOnKeyPressed(this::onKeyPressed);
         canvas.setOnKeyReleased(this::onKeyReleased);
 
+        //Initializing the bullets in the game
+
+        bulletsPlayer1 = new ArrayList<>();
+        bulletsPlayer2 = new ArrayList<>();
+
         //Initializing the matrix
-
-
         Integer obstaclesInMap[][] = new Integer[][]{{null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null},
-                {null, 1, null,null, 1, null, null, null,null,null,null,null,null,null,null,  1, null, null,  1, null },
-                {null, 1, null,null, 1, null, null, null,null,null,null,null,null,null,null, 1, null, null,  1, null },
-                {null, 1, null,null,1, null, null, null,null,null,null,null,null,null,null, 1, null, null,1, null },
-                {null, null, 1,1, null,  null,  1, null,  1, null, null,  1, null, 1, null, null,  1, 1, null, null},
-                {null, null,1, 1, null,  null, 1, 1, 1, null, null, 1,1 , 1, null, null, 1, 1, null, null},
-                {null, null,1, 1, null,  null,  1, null, 1, null, null,  1, null, 1, null, null,  1, 1, null, null},
-                {null, 1, null,null, 1, null, null, null,null,null,null,null,null,null,null,  1, null, null,  1, null },
-                {null, 1, null,null, 1, null, null, null,null,null,null,null,null,null,null,  1, null, null,  1, null },
-                {null, 1, null,null, 1, null, null, null,null,null,null,null,null,null,null, 1, null, null,  1, null },
+                {null, 1, null,null, 2, null, null, null,null,null,null,null,null,null,null,  1, null, null,  2, null },
+                {null, 2, null,null, 1, null, null, 1,2,1,2,1,2,null,null, 2, null, null,  1, null },
+                {null, 1, null,null,2, null, null, null,null,null,null,null,null,null,null, 1, null, null,2, null },
+                {null, null, 2,1, null,  null,  2, null,  2, null, null,  2, null, 2, null, null,  2, 1, null, null},
+                {null, null,1, 2, null,  null, 1, 2, 1, null, null, 1,2 , 1, null, null, 1, 2, null, null},
+                {null, null,2, 1, null,  null,  2, null, 2, null, null,  2, null, 2, null, null,  2, 1, null, null},
+                {null, 1, null,null, 2, null, null, null,null,null,null,null,null,null,null,  1, null, null,  2, null },
+                {null, 2, null,null, 1, null, null, 2, 1 ,2 ,1 ,2 ,1 ,null,null, 2, null, null,  1, null },
+                {null, 1, null,null, 2, null, null, null,null,null,null,null,null,null,null, 1, null, null,  2, null },
                 {null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null},
                 {null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null}};
 
@@ -84,8 +88,10 @@ public class Gameplay implements Initializable {
             for (int j = 0; j < obstacles[0].length ; j++) {
                 if(obstaclesInMap[i][j] == null){
                     obstacles[i][j] = null;
+                } else if(obstaclesInMap[i][j] == 1) {
+                    obstacles[i][j] = new Obstacle(canvas, gc, i, j, 1);
                 } else {
-                    obstacles[i][j] = new Obstacle(canvas, gc, i, j);
+                    obstacles[i][j] = new Obstacle(canvas, gc, i, j, 2);
                 }
             }
         }
@@ -109,9 +115,17 @@ public class Gameplay implements Initializable {
                             for (int i = 0; i < obstacles.length; i++) {
                                 for (int j = 0; j < obstacles[0].length ; j++) {
                                     if (obstacles[i][j] != null) {
+
                                         obstacles[i][j].draw();
                                     }
                                 }
+                            }
+
+                            for (int i = 0; i < bulletsPlayer1.size() ; i++) {
+                                bulletsPlayer1.get(i).draw();
+                            }
+                            for (int i = 0; i < bulletsPlayer2.size() ; i++) {
+                                bulletsPlayer2.get(i).draw();
                             }
 
                             /*for (int i = 0; i < enemies.size() ; i++) {
@@ -200,10 +214,14 @@ public class Gameplay implements Initializable {
         if (keyEvent.getCode() == KeyCode.LEFT){
             leftPressed = true;
         }
-        /*if(keyEvent.getCode() == KeyCode.SPACE) {
-            Bullet bullet = new Bullet(canvas, gc, new Vector(avatar.pos.x, avatar.pos.y ), new Vector(2*avatar.direction.x, 2*avatar.direction.y ));
-            bullets.add(bullet);
-        }*/
+        if(keyEvent.getCode() == KeyCode.SPACE) {
+            Bullet bullet = new Bullet(canvas, gc, new Vector(player1.pos.x, player1.pos.y ), new Vector(2.5*player1.direction.x, 2.5*player1.direction.y ), 1);
+            bulletsPlayer1.add(bullet);
+        }
+        if(keyEvent.getCode() == KeyCode.SHIFT) {
+            Bullet bullet = new Bullet(canvas, gc, new Vector(player2.pos.x, player2.pos.y ), new Vector(2.5*player2.direction.x, 2.5*player2.direction.y ), 2);
+            bulletsPlayer1.add(bullet);
+        }
     }
 
     private void doKeyboardActions() {
@@ -250,7 +268,7 @@ public class Gameplay implements Initializable {
 
         }
         if (Dpressed) {
-            player1.changeAngle(6);
+            player1.changeAngle(3);
         }
         if (upPressed) {
             if(player2.pos.x<=canvas.getWidth() && player2.pos.x>0 && player2.pos.y<=canvas.getHeight() && player2.pos.y>0)
@@ -270,7 +288,7 @@ public class Gameplay implements Initializable {
 
         }
         if (leftPressed) {
-            player2.changeAngle(-6);
+            player2.changeAngle(-3);
         }
         if (downPressed) {
             if(player2.pos.x<=canvas.getWidth() && player2.pos.x>0 && player2.pos.y<=canvas.getHeight() && player2.pos.y>0)
@@ -294,25 +312,4 @@ public class Gameplay implements Initializable {
             player2.changeAngle(6);
         }
     }
-
-    /*private void onKeyPressedPlayer2(KeyEvent keyEvent) {
-        if (keyEvent.getCode() == KeyCode.) {
-            Wpressed = true;
-        }
-        if (keyEvent.getCode() == KeyCode.A) {
-            Apressed = true;
-        }
-        if (keyEvent.getCode() == KeyCode.S) {
-            Spressed = true;
-        }
-        if (keyEvent.getCode() == KeyCode.D) {
-            Dpressed = true;
-        }
-        *//*if(keyEvent.getCode() == KeyCode.SPACE) {
-            Bullet bullet = new Bullet(canvas, gc, new Vector(avatar.pos.x, avatar.pos.y ), new Vector(2*avatar.direction.x, 2*avatar.direction.y ));
-            bullets.add(bullet);
-        }*//*
-    }*/
-
-
 }

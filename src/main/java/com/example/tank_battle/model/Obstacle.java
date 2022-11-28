@@ -15,22 +15,22 @@ public class Obstacle {
 
     private int x, y;
 
-    public Obstacle(Canvas canvas, GraphicsContext gc, int x, int y) {
+    public Obstacle(Canvas canvas, GraphicsContext gc, int x, int y, int type) {
         this.canvas = canvas;
         this.gc = gc;
         this.x = 50 *x;
         this.y = 50 *y;
-        String uri =  "file:"+ GameMain.class.getResource("wall.png").getPath();
+        String uri;
+        if (type == 1) {
+            uri =  "file:"+ GameMain.class.getResource("wall3.png").getPath();
+        } else {
+            uri =  "file:"+ GameMain.class.getResource("wall2.png").getPath();
+        }
+        wall = new Image(uri);
     }
 
     public void draw(){
-        //System.out.println(x+ " " +y);
-
-        //gc.drawImage(wall ,x,y, 50,50   );
-
-        gc.setFill(Color.BLUE);
-        gc.fillRect(y ,x ,50,50);
-
+        gc.drawImage(wall ,y,x, 50,50   );
     }
 
 }

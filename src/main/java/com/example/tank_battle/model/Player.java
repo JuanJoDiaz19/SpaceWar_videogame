@@ -40,7 +40,6 @@ public class Player {
         direction.y = amp*Math.sin(Math.toRadians(angle));
     }
 
-
     public void moveForward(){
         pos.x += direction.x;
         pos.y += direction.y;

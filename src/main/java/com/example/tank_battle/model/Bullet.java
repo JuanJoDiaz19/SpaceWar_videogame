@@ -1,7 +1,9 @@
 package com.example.tank_battle.model;
 
+import com.example.tank_battle.GameMain;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 public class Bullet {
@@ -9,17 +11,31 @@ public class Bullet {
     private GraphicsContext gc;
     public Vector pos;
     public Vector direction;
+    private Image bulletImage;
+    private int type;
 
-    public Bullet(Canvas canvas, GraphicsContext gc, Vector pos, Vector direction) {
+    public Bullet(Canvas canvas, GraphicsContext gc, Vector pos, Vector direction, int type) {
         this.canvas = canvas;
         this.gc = gc;
         this.pos = pos;
         this.direction = direction;
+        this.type = type;
+        String uri;
+        if (type == 1) {
+            uri =  "file:"+ GameMain.class.getResource("redBullet.png").getPath();
+        } else {
+            uri =  "file:"+ GameMain.class.getResource("blueBullet.png").getPath();
+        }
+        bulletImage = new Image(uri);
     }
 
     public void draw(){
-        gc.setFill(Color.YELLOW);
-        gc.fillOval(pos.x-5,pos.y-5, 10,10);
+        gc.save();
+        gc.translate(pos.x, pos.y);
+        gc.rotate(90 + direction.getAngle());
+        gc.drawImage(bulletImage,-15,-20,20,20);
+        gc.restore();
+
         pos.x += direction.x;
         pos.y += direction.y;
     }

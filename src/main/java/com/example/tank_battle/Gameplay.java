@@ -201,11 +201,18 @@ public class Gameplay implements Initializable {
         if(keyEvent.getCode() == KeyCode.SPACE && player1.numBullets > 0 ) {
             Bullet bullet = new Bullet(canvas, gc, new Vector(player1.pos.x, player1.pos.y ), new Vector(2.5*player1.direction.x, 2.5*player1.direction.y ), 1);
             bulletsPlayer1.add(bullet);
+            player1.numBullets--;
         }
         if(keyEvent.getCode() == KeyCode.SHIFT && player2.numBullets > 0) {
             Bullet bullet = new Bullet(canvas, gc, new Vector(player2.pos.x, player2.pos.y ), new Vector(2.5*player2.direction.x, 2.5*player2.direction.y ), 2);
             bulletsPlayer2.add(bullet);
             player2.numBullets--;
+        }
+        if(keyEvent.getCode() == KeyCode.E){
+            player1.numBullets = 5;
+        }
+        if(keyEvent.getCode() == KeyCode.CONTROL){
+            player2.numBullets = 5;
         }
     }
 

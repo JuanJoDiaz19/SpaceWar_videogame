@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 public class HomeMenuController {
 
@@ -16,7 +17,9 @@ public class HomeMenuController {
 
     @FXML
     void play(ActionEvent event) {
-
+        GameMain.showWindow("gameCanvas.fxml");
+        Stage currentStage = (Stage) playButton.getScene().getWindow();
+        currentStage.hide();
     }
 
     @FXML

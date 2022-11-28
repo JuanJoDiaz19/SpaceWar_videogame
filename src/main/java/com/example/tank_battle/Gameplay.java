@@ -13,6 +13,8 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Paint;
+import javafx.util.Pair;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -32,6 +34,8 @@ public class Gameplay implements Initializable {
     private Player player2;
 
     //Bullets in the game
+    private ArrayList<Pair<Integer,Integer>> walletsp;
+
     private ArrayList<Bullet> bulletsPlayer1;
     private ArrayList<Bullet> bulletsPlayer2;
     private Image backgroud;

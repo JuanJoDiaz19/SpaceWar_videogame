@@ -144,13 +144,17 @@ public class Gameplay implements Initializable {
 
         }
         if (Apressed) {
-            player1.changeAngle(-6);
+                player1.changeAngle(-6);
         }
         if (Spressed) {
-            player1.moveBackward();
+            if(player1.pos.x<=canvas.getWidth() && player1.pos.x>0)
+                player1.moveBackward();
+            else
+                player1.pos.x-=2;
         }
         if (Dpressed) {
-            player1.changeAngle(6);
+
+                player1.changeAngle(6);
         }
     }
 

@@ -15,6 +15,8 @@ public class Player {
     public Vector pos;
     public Vector direction;
 
+    public int numBullets;
+
     public Player(String name,Canvas canvas, String path){
         this.name=name;
         gc = canvas.getGraphicsContext2D();
@@ -22,6 +24,7 @@ public class Player {
         tank = new Image(uri);
         pos = new Vector(100, 100);
         direction = new Vector(1,1);
+        numBullets = 5;
     }
 
     public void draw(){

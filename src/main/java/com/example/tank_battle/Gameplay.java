@@ -34,19 +34,17 @@ public class Gameplay implements Initializable {
     //Bullets in the game
     private ArrayList<Bullet> bulletsPlayer1;
     private ArrayList<Bullet> bulletsPlayer2;
-
     private Image backgroud;
-
-    private Obstacle[][] obstacles;
+    private Obstacle[][] obstaclesMap;
+    private ArrayList<Obstacle> obstacles;
     
-    //Estados de las teclas para el juagador 1
+    //Estados de las teclas para el jugador 1
     private boolean Wpressed = false;
     private boolean Apressed = false;
     private boolean Spressed = false;
     private boolean Dpressed = false;
 
     //Estados de las teclas para el jugador 2
-
     private boolean upPressed =  false;
     private boolean downPressed = false;
     private boolean rightPressed = false;
@@ -68,6 +66,8 @@ public class Gameplay implements Initializable {
 
         bulletsPlayer1 = new ArrayList<>();
         bulletsPlayer2 = new ArrayList<>();
+        obstacles = new ArrayList<>();
+        walletsp= new ArrayList<>();
 
         //Initializing the matrix
         Integer obstaclesInMap[][] = new Integer[][]{{null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null},
@@ -83,19 +83,23 @@ public class Gameplay implements Initializable {
                 {null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null},
                 {null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null}};
 
-        obstacles = new Obstacle[12][20];
-        for (int i = 0; i < obstacles.length ; i++) {
-            for (int j = 0; j < obstacles[0].length ; j++) {
+        obstaclesMap = new Obstacle[12][20];
+        for (int i = 0; i < obstaclesMap.length ; i++) {
+            for (int j = 0; j < obstaclesMap[0].length ; j++) {
                 if(obstaclesInMap[i][j] == null){
-                    obstacles[i][j] = null;
+                    obstaclesMap[i][j] = null;
                 } else if(obstaclesInMap[i][j] == 1) {
-                    obstacles[i][j] = new Obstacle(canvas, gc, i, j, 1);
+
+                    obstaclesMap[i][j] = new Obstacle(canvas, gc, i, j, 1);
+                    obstacles.add(obstaclesMap[i][j]);
+                    walletsp.add(new Pair<>(obstaclesMap[i][j].getX(), obstaclesMap[i][j].getY()));
                 } else {
-                    obstacles[i][j] = new Obstacle(canvas, gc, i, j, 2);
+                    obstaclesMap[i][j] = new Obstacle(canvas, gc, i, j, 2);
+                    obstacles.add(obstaclesMap[i][j]);
+                    walletsp.add(new Pair<>(obstaclesMap[i][j].getX(), obstaclesMap[i][j].getY()));
                 }
             }
         }
-
         player1 = new Player("Juancho", canvas, "tank1.png");
         player2 = new Player("Mateo", canvas, "tank2.png");
         draw();
@@ -112,44 +116,24 @@ public class Gameplay implements Initializable {
                             player1.draw();
                             player2.draw();
 
-                            for (int i = 0; i < obstacles.length; i++) {
-                                for (int j = 0; j < obstacles[0].length ; j++) {
-                                    if (obstacles[i][j] != null) {
-
-                                        obstacles[i][j].draw();
+                            for (int i = 0; i < obstaclesMap.length; i++) {
+                                for (int j = 0; j < obstaclesMap[0].length ; j++) {
+                                    if (obstaclesMap[i][j] != null) {
+                                        obstaclesMap[i][j].draw();
                                     }
                                 }
                             }
-
                             for (int i = 0; i < bulletsPlayer1.size() ; i++) {
                                 bulletsPlayer1.get(i).draw();
                             }
                             for (int i = 0; i < bulletsPlayer2.size() ; i++) {
                                 bulletsPlayer2.get(i).draw();
                             }
-
-                            /*for (int i = 0; i < enemies.size() ; i++) {
-                                enemies.get(i).draw();
-                            }*/
-
-                            /*for (int i = 0; i < bullets.size(); i++) {
-                                bullets.get(i).draw();
-                                if(bullets.get(i).pos.x> canvas.getWidth()+20 ||
-                                        bullets.get(i).pos.y > canvas.getHeight()+20 ||
-                                        bullets.get(i).pos.y < -20 ||
-                                        bullets.get(i).pos.x < -20) {
-                                    bullets.remove(i);
-                                }
-                            }*/
-                            //System.out.println(bullets.size());
-
                             //Colisiones
                             //detectionCollision();
-
                             doKeyboardActions();
-
                         });
-                        //Sleep
+                        //Sleep (Mimiendo)
                         try {
                             Thread.sleep(20);
                         } catch (InterruptedException e) {
@@ -214,69 +198,60 @@ public class Gameplay implements Initializable {
         if (keyEvent.getCode() == KeyCode.LEFT){
             leftPressed = true;
         }
-        if(keyEvent.getCode() == KeyCode.SPACE) {
+        if(keyEvent.getCode() == KeyCode.SPACE && player1.numBullets > 0 ) {
             Bullet bullet = new Bullet(canvas, gc, new Vector(player1.pos.x, player1.pos.y ), new Vector(2.5*player1.direction.x, 2.5*player1.direction.y ), 1);
             bulletsPlayer1.add(bullet);
         }
-        if(keyEvent.getCode() == KeyCode.SHIFT) {
+        if(keyEvent.getCode() == KeyCode.SHIFT && player2.numBullets > 0) {
             Bullet bullet = new Bullet(canvas, gc, new Vector(player2.pos.x, player2.pos.y ), new Vector(2.5*player2.direction.x, 2.5*player2.direction.y ), 2);
-            bulletsPlayer1.add(bullet);
+            bulletsPlayer2.add(bullet);
+            player2.numBullets--;
         }
     }
 
     private void doKeyboardActions() {
-
         if (Wpressed) {
             boolean flag= true;
             if(player1.pos.x<=canvas.getWidth() && player1.pos.x>0 && player1.pos.y<=canvas.getHeight() && player1.pos.y>0)
-                /*for(int i=0; i< obstacles.length; i++){
-                    for(int j=0; j<obstacles[0].length; j++){
-                        if(player1.pos.x==obstacles[i][j].getX()){
-                            flag = false;
-                        }
-                    }
-                }*/
-                player1.moveForward();
+                for(int i=0; i< walletsp.size(); i++){
+
+                }
+                if(flag) player1.moveForward();
+
             if(player1.pos.x>canvas.getWidth()){
                 player1.pos.x=15;
             }
             if(player1.pos.x<=0){
                 player1.pos.x=canvas.getWidth();
             }
-
             if(player1.pos.y>canvas.getHeight()){
                 player1.pos.y=canvas.getHeight();
             }
-
             if(player1.pos.y<=0) player1.pos.y=5;
-
         }
         if (Apressed) {
-            player1.changeAngle(-6);
+            player1.changeAngle(-3);
         }
         if (Spressed) {
-
             if(player1.pos.x<=canvas.getWidth() && player1.pos.x>0 && player1.pos.y<=canvas.getHeight() && player1.pos.y>0)
                 player1.moveBackward();
             if(player1.pos.x>canvas.getWidth()){
                 player1.pos.x=15;
-
             }
             if(player1.pos.x<=0){
                 player1.pos.x=canvas.getWidth();
-
             }
-
             if(player1.pos.y>canvas.getHeight()){
                 player1.pos.y=canvas.getHeight();
             }
-
-            if(player1.pos.y<=0) player1.pos.y=5;
-
+            if(player1.pos.y<=0) {
+                player1.pos.y=5;
+            }
         }
         if (Dpressed) {
             player1.changeAngle(3);
         }
+        //Codigo pora el player 2
         if (upPressed) {
             if(player2.pos.x<=canvas.getWidth() && player2.pos.x>0 && player2.pos.y<=canvas.getHeight() && player2.pos.y>0)
                 player2.moveForward();
@@ -286,13 +261,10 @@ public class Gameplay implements Initializable {
             if(player2.pos.x<=0){
                 player2.pos.x=canvas.getWidth();
             }
-
             if(player2.pos.y>canvas.getHeight()){
                 player2.pos.y=canvas.getHeight();
             }
-
             if(player2.pos.y<=0) player2.pos.y=5;
-
         }
         if (leftPressed) {
             player2.changeAngle(-3);
@@ -306,17 +278,28 @@ public class Gameplay implements Initializable {
             }
             if(player2.pos.x<=0){
                 player2.pos.x=canvas.getWidth();
-
             }
-
             if(player2.pos.y>canvas.getHeight()){
                 player2.pos.y=canvas.getHeight();
             }
-
             if(player2.pos.y<=0) player2.pos.y=5;
         }
         if (rightPressed) {
-            player2.changeAngle(6);
+            player2.changeAngle(3);
         }
     }
+
+    /*
+    public boolean detectionOfCollisionWalls() {
+        for (Obstacle ob: obstacles) {
+            double c1 = player1.pos.x -ob.x;
+            double c2 = player1.pos.y -ob.y;
+            double distancePlayer1 = Math.sqrt(Math.pow(c1, 2) + Math.pow(c2, 2));
+            if (distancePlayer1 < 25) {
+                return false;
+            }
+        }
+    }
+    */
+
 }

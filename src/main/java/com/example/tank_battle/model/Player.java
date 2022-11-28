@@ -15,10 +15,10 @@ public class Player {
     public Vector pos;
     public Vector direction;
 
-    public Player(String name,Canvas canvas){
+    public Player(String name,Canvas canvas, String path){
         this.name=name;
         gc = canvas.getGraphicsContext2D();
-        String uri = "file:"+ GameMain.class.getResource("tank1.png").getPath();
+        String uri = "file:"+ GameMain.class.getResource(path).getPath();
         tank = new Image(uri);
         pos = new Vector(100, 100);
         direction = new Vector(1,1);

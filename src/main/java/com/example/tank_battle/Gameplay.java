@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
@@ -32,6 +33,8 @@ public class Gameplay implements Initializable {
     //Bullets in the game
     private ArrayList<Bullet> bulletsPlayer1;
     private ArrayList<Bullet> bulletsPlayer2;
+
+    private Image backgroud;
     
     //Estados de las teclas
     boolean Wpressed = false;
@@ -45,10 +48,14 @@ public class Gameplay implements Initializable {
         gc = canvas.getGraphicsContext2D();
         canvas.setFocusTraversable(true);
 
+        String uriBackgroud = "file:"+ GameMain.class.getResource("gameplayBackground.png").getPath();
+        backgroud = new Image(uriBackgroud);
+
         canvas.setOnKeyPressed(this::onKeyPressed);
         canvas.setOnKeyReleased(this::onKeyReleased);
 
-        player1 = new Player("Juancho", canvas);
+        player1 = new Player("Juancho", canvas, "tank1.png");
+        player2 = new Player("Mateo", canvas, "tank2.png");
         draw();
     }
 
@@ -57,9 +64,13 @@ public class Gameplay implements Initializable {
                 () -> {
                     while (isRunning) {
                         Platform.runLater(() -> {
-                            gc.setFill(Color.BLACK);
-                            gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+                            //gc.setFill();
+                           //gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+                            gc.save();
+                            gc.drawImage(backgroud, 0, 0, canvas.getWidth(), canvas.getHeight());
+                            gc.restore();
                             player1.draw();
+                            player2.draw();
                             /*for (int i = 0; i < enemies.size() ; i++) {
                                 enemies.get(i).draw();
                             }*/
@@ -128,8 +139,9 @@ public class Gameplay implements Initializable {
 
     private void doKeyboardActions() {
         if (Wpressed) {
-            //if(player1.pos.x<=canvas.getWidth())
+            if(player1.pos.x<=canvas.getWidth() && player1.pos.x>0)
                 player1.moveForward();
+
         }
         if (Apressed) {
             player1.changeAngle(-6);

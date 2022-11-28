@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.HBox?>
 
 
-<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tank_battle.Gameplay">
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" style="-fx-background-image: backgroudGameplay.png;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tank_battle.Gameplay">
    <children>
-      <HBox fx:id="hBox" prefHeight="99.0" prefWidth="900.0" />
-      <Canvas fx:id="canvas" height="603.0" layoutY="99.0" width="1000.0" />
+      <HBox fx:id="hBox" prefHeight="100.0" prefWidth="900.0" />
+      <Canvas fx:id="canvas" height="600.0" layoutY="100.0" width="1000.0" />
    </children>
 </AnchorPane>

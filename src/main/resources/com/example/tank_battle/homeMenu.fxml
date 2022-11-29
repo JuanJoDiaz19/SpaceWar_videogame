@@ -11,7 +11,7 @@
    <children>
       <ImageView fitHeight="569.0" fitWidth="1047.0" layoutX="-8.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@Intro.gif" />
+            <Image url="@IntroMoon.gif" />
          </image>
       </ImageView>
       <HBox alignment="CENTER" layoutX="-11.0" layoutY="560.0" prefHeight="151.0" prefWidth="1023.0" style="-fx-background-color: BLACK; -fx-border-color: WHITE; -fx-border-width: 5;">

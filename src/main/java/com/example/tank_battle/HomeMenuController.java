@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class HomeMenuController {
@@ -23,8 +22,10 @@ public class HomeMenuController {
     }
 
     @FXML
-    void scores(MouseEvent event) {
-
+    void scores(ActionEvent event) {
+        GameMain.showWindow("scores.fxml");
+        Stage currentStage = (Stage) playButton.getScene().getWindow();
+        currentStage.hide();
     }
 
 }

@@ -15,6 +15,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Pair;
 
 import java.net.URL;
@@ -133,8 +134,9 @@ public class Gameplay implements Initializable {
                                 bulletsPlayer2.get(i).draw();
                             }
                             //Colisiones
-                            detectionBulletCollision();
+                            //detectionBulletCollision();
                             doKeyboardActions();
+                            detectedCollision();
                         });
                         //Sleep (Mimiendo)
                         try {
@@ -147,19 +149,7 @@ public class Gameplay implements Initializable {
         ).start();
     }
 
-    private void detectionBulletCollision() {
-        /*for (int i = 0; i < bulletsPlayer1.size(); i++) {
 
-            if (obstacles.get(i).getHitBox().intersects(player1.pos.x+ player1.direction.x -15 , player1.pos.y+ player1.direction.y -15, 30, 30 )){
-                flag = true;
-                //System.out.println("Me gusta el chimbo");
-            }
-        }*/
-
-        for (int i = 0; i < bulletsPlayer2.size(); i++) {
-
-        }
-    }
 
     private void onKeyReleased(KeyEvent keyEvent) {
 
@@ -339,17 +329,38 @@ public class Gameplay implements Initializable {
         }
     }
 
-    /*
-    public boolean detectionOfCollisionWalls() {
-        for (Obstacle ob: obstacles) {
-            double c1 = player1.pos.x -ob.x;
-            double c2 = player1.pos.y -ob.y;
-            double distancePlayer1 = Math.sqrt(Math.pow(c1, 2) + Math.pow(c2, 2));
-            if (distancePlayer1 < 25) {
-                return false;
+    private void detectedCollision(){
+        for(int i=0; i<obstacles.size(); i++){
+            for(int j=0; j<bulletsPlayer1.size(); j++){
+                Rectangle e= obstacles.get(i).getHitBox();
+                Bullet b= bulletsPlayer1.get(j);
+
+                double c1 = b.pos.x - e.getX();
+                double c2 = b.pos.y - e.getY();
+                double distance = Math.sqrt(Math.pow(c1, 2) + Math.pow(c2, 2));
+                if(distance<27){
+                    bulletsPlayer1.remove(j);
+                    obstacles.remove(i);
+                }
+
+            }
+        }
+
+        for(int i=0; i<obstacles.size(); i++){
+            for(int j=0; j<bulletsPlayer2.size(); j++){
+                Rectangle e= obstacles.get(i).getHitBox();
+                Bullet b= bulletsPlayer2.get(j);
+
+                double c1 = b.pos.x - e.getX();
+                double c2 = b.pos.y - e.getY();
+                double distance = Math.sqrt(Math.pow(c1, 2) + Math.pow(c2, 2));
+                if(distance<27){
+                    bulletsPlayer2.remove(j);
+                    obstacles.remove(i);
+                }
+
             }
         }
     }
-    */
 
 }

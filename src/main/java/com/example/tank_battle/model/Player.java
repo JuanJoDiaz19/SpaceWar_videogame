@@ -16,24 +16,45 @@ public class Player {
     private Player right;
 
     private Canvas canvas;
+
+    public GraphicsContext getGc() {
+        return gc;
+    }
+
+    public void setGc(GraphicsContext gc) {
+        this.gc = gc;
+    }
+
     private GraphicsContext gc;
+
+    public Image getTank() {
+        return tank;
+    }
+
+    public void setTank(String path) {
+        String uri = "file:"+ GameMain.class.getResource(path).getPath();
+        this.tank = new Image(uri);
+    }
+
     private Image tank;
     public Vector pos;
     public Vector direction;
     public int numBullets;
     public int numLifes;
 
+    public Player(){
+        pos = new Vector(250, 250);
+        direction = new Vector(1,1);
+        names = new ArrayList<>();
+        numBullets = 5;
+        numLifes = 5;
+    }
 
     public Player(String name,Canvas canvas, String path){
         this.name=name;
         gc = canvas.getGraphicsContext2D();
         String uri = "file:"+ GameMain.class.getResource(path).getPath();
         tank = new Image(uri);
-        pos = new Vector(250, 250);
-        direction = new Vector(1,1);
-        names = new ArrayList<>();
-        numBullets = 5;
-        numLifes = 5;
     }
 
     public Player(String name, int wonMatches){

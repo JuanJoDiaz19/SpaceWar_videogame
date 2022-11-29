@@ -301,7 +301,23 @@ public class Gameplay implements Initializable {
             if(distance < 20){
                 bulletsPlayer1.remove(b);
                 player2.numLifes--;
-                return;
+                switch (player2.numLifes){
+                        case 4:
+                            h5p2.setImage(withoutHealth);
+                            break;
+                        case 3:
+                            h4p2.setImage(withoutHealth);
+                            break;
+                        case 2:
+                            h3p2.setImage(withoutHealth);
+                            break;
+                        case 1:
+                            h2p2.setImage(withHealth);
+                            break;
+                        case 0:
+                            h1p2.setImage(withoutHealth);
+                            break;
+                }
             }
         }
 
@@ -312,6 +328,23 @@ public class Gameplay implements Initializable {
             if(distance < 20){
                 bulletsPlayer2.remove(b);
                 player1.numLifes--;
+                switch (player1.numLifes){
+                    case 4:
+                        h5p1.setImage(withoutHealth);
+                        break;
+                    case 3:
+                        h4p1.setImage(withoutHealth);
+                        break;
+                    case 2:
+                        h3p1.setImage(withoutHealth);
+                        break;
+                    case 1:
+                        h2p1.setImage(withHealth);
+                        break;
+                    case 0:
+                        h1p1.setImage(withoutHealth);
+                        break;
+                }
                 return;
             }
         }

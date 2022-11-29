@@ -267,16 +267,15 @@ public class Gameplay implements Initializable {
                             gc.save();
                             gc.drawImage(backgroud, 0, 0, canvas.getWidth(), canvas.getHeight());
                             gc.restore();
-                            if (animationExplosionPlayer1 > 0){
+                            if (animationExplosionPlayer1 > 11){
                                 player1.draw();
                             }
-                            if(animationExplosionPlayer2 > 0 ){
+                            if(animationExplosionPlayer2 > 11 ){
                                 player2.draw();
                             }
                             for (Obstacle ob : obstacles) {
                                 ob.draw();
                             }
-
                             for (int i = 0; i < bulletsPlayer1.size() ; i++) {
                                 bulletsPlayer1.get(i).draw();
                             }

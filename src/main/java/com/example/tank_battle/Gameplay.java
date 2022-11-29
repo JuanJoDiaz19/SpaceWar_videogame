@@ -9,13 +9,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
 import javafx.util.Pair;
 
 import java.net.URL;
@@ -37,7 +36,6 @@ public class Gameplay implements Initializable {
 
     //Bullets in the game
     private ArrayList<Pair<Integer,Integer>> walletsp;
-
     private ArrayList<Bullet> bulletsPlayer1;
     private ArrayList<Bullet> bulletsPlayer2;
 
@@ -47,6 +45,104 @@ public class Gameplay implements Initializable {
     private Image backgroud;
     private Obstacle[][] obstaclesMap;
     private ArrayList<Obstacle> obstacles;
+    @FXML
+    private ImageView b1cpu;
+
+    @FXML
+    private ImageView b1p1;
+
+    @FXML
+    private ImageView b1p2;
+
+    @FXML
+    private ImageView b2cpu;
+
+    @FXML
+    private ImageView b2p1;
+
+    @FXML
+    private ImageView b2p2;
+
+    @FXML
+    private ImageView b3cpu;
+
+    @FXML
+    private ImageView b3p1;
+
+    @FXML
+    private ImageView b3p2;
+
+    @FXML
+    private ImageView b4cpu;
+
+    @FXML
+    private ImageView b4p1;
+
+    @FXML
+    private ImageView b4p2;
+
+    @FXML
+    private ImageView b5cpu;
+
+    @FXML
+    private ImageView b5p1;
+
+    @FXML
+    private ImageView b5p2;
+
+    @FXML
+    private ImageView h1cpu;
+
+    @FXML
+    private ImageView h1p1;
+
+    @FXML
+    private ImageView h1p2;
+
+    @FXML
+    private ImageView h2cpu;
+
+    @FXML
+    private ImageView h2p1;
+
+    @FXML
+    private ImageView h2p2;
+
+    @FXML
+    private ImageView h3cpu;
+
+    @FXML
+    private ImageView h3p1;
+
+    @FXML
+    private ImageView h3p2;
+
+    @FXML
+    private ImageView h4cpu;
+
+    @FXML
+    private ImageView h4p1;
+
+    @FXML
+    private ImageView h4p2;
+
+    @FXML
+    private ImageView h5cpu;
+
+    @FXML
+    private ImageView h5p1;
+
+    @FXML
+    private ImageView h5p2;
+
+    @FXML
+    private Label labelCPU;
+
+    @FXML
+    private Label labelP1;
+
+    @FXML
+    private Label labelP2;
     
     //Estados de las teclas para el jugador 1
     private boolean Wpressed = false;
@@ -60,14 +156,20 @@ public class Gameplay implements Initializable {
     private boolean rightPressed = false;
     private boolean leftPressed = false;
 
+    private Image withRedBullet;
+    private Image withBlueBullet;
+    private Image withoutBullet;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        withRedBullet = new Image("file:"+ GameMain.class.getResource("redBullet.png").getPath());
+        withBlueBullet= new Image("file:"+ GameMain.class.getResource("blueBullet.png").getPath());
+        withoutBullet= new Image("file:"+ GameMain.class.getResource("projectileEmpty.png").getPath());
         gc = canvas.getGraphicsContext2D();
         canvas.setFocusTraversable(true);
 
-        String uriBackgroud = "file:"+ GameMain.class.getResource("gameplayBackground.png").getPath();
-        backgroud = new Image(uriBackgroud);
+        String uriBackground = "file:"+ GameMain.class.getResource("gameplayBackground.png").getPath();
+        backgroud = new Image(uriBackground);
 
         canvas.setOnKeyPressed(this::onKeyPressed);
         canvas.setOnKeyReleased(this::onKeyReleased);
@@ -139,7 +241,7 @@ public class Gameplay implements Initializable {
                                 bulletsPlayer2.get(i).draw();
                             }
                             //Colisiones
-                            //detectionBulletCollision();
+                            detectionBulletCollisionWithPlayer();
                             doKeyboardActions();
                             detectedCollision();
                             bulletInPlayer1();
@@ -155,6 +257,29 @@ public class Gameplay implements Initializable {
         ).start();
     }
 
+    private void detectionBulletCollisionWithPlayer() {
+        for (Bullet b : bulletsPlayer1) {
+            double c1 = b.pos.x - player2.pos.x;
+            double c2 = b.pos.y - player2.pos.y;
+            double distance = Math.sqrt(Math.pow(c1, 2) + Math.pow(c2, 2));
+            if(distance < 10){
+                bulletsPlayer1.remove(b);
+                player2.numLifes--;
+                return;
+            }
+        }
+
+        for (Bullet b : bulletsPlayer2) {
+            double c1 = b.pos.x - player1.pos.x;
+            double c2 = b.pos.y - player1.pos.y;
+            double distance = Math.sqrt(Math.pow(c1, 2) + Math.pow(c2, 2));
+            if(distance < 10){
+                bulletsPlayer2.remove(b);
+                player1.numLifes--;
+                return;
+            }
+        }
+    }
 
 
     private void onKeyReleased(KeyEvent keyEvent) {
@@ -215,17 +340,62 @@ public class Gameplay implements Initializable {
             Bullet bullet = new Bullet(canvas, gc, new Vector(player1.pos.x, player1.pos.y ), new Vector(2.5*player1.direction.x, 2.5*player1.direction.y ), 1);
             bulletsPlayer1.add(bullet);
             player1.numBullets--;
+            switch (player1.numBullets){
+                case 4:
+                    b5p1.setImage(withoutBullet);
+                    break;
+                case 3:
+                    b4p1.setImage(withoutBullet);
+                    break;
+                case 2:
+                    b3p1.setImage(withoutBullet);
+                    break;
+                case 1:
+                    b2p1.setImage(withoutBullet);
+                    break;
+                case 0:
+                    b1p1.setImage(withoutBullet);
+                    break;
+            }
         }
         if(keyEvent.getCode() == KeyCode.SHIFT && player2.numBullets > 0) {
             Bullet bullet = new Bullet(canvas, gc, new Vector(player2.pos.x, player2.pos.y ), new Vector(2.5*player2.direction.x, 2.5*player2.direction.y ), 2);
             bulletsPlayer2.add(bullet);
             player2.numBullets--;
+            switch (player2.numBullets){
+                case 4:
+                    b5p2.setImage(withoutBullet);
+                    break;
+                case 3:
+                    b4p2.setImage(withoutBullet);
+                    break;
+                case 2:
+                    b3p2.setImage(withoutBullet);
+                    break;
+                case 1:
+                    b2p2.setImage(withoutBullet);
+                    break;
+                case 0:
+                    b1p2.setImage(withoutBullet);
+                    break;
+            }
         }
         if(keyEvent.getCode() == KeyCode.E){
             player1.numBullets = 5;
+            b1p1.setImage(withRedBullet);
+            b2p1.setImage(withRedBullet);
+            b3p1.setImage(withRedBullet);
+            b4p1.setImage(withRedBullet);
+            b5p1.setImage(withRedBullet);
         }
         if(keyEvent.getCode() == KeyCode.CONTROL){
             player2.numBullets = 5;
+            player1.numBullets = 5;
+            b1p2.setImage(withBlueBullet);
+            b2p2.setImage(withBlueBullet);
+            b3p2.setImage(withBlueBullet);
+            b4p2.setImage(withBlueBullet);
+            b5p2.setImage(withBlueBullet);
         }
     }
 
@@ -236,7 +406,6 @@ public class Gameplay implements Initializable {
                 for (int i = 0; i < obstacles.size(); i++) {
                     if (obstacles.get(i).getHitBox().intersects(player1.pos.x+ player1.direction.x -15 , player1.pos.y+ player1.direction.y -15, 30, 30 )){
                         flag = true;
-                        //System.out.println("Me gusta el chimbo");
                     }
                 }
                 if (!flag) player1.moveForward();
@@ -336,35 +505,21 @@ public class Gameplay implements Initializable {
     }
 
     private void detectedCollision(){
-        for(int i=0; i<obstacles.size(); i++){
-            for(int j=0; j<bulletsPlayer1.size(); j++){
-                Rectangle e= obstacles.get(i).getHitBox();
-                Bullet b= bulletsPlayer1.get(j);
-
-                double c1 = b.pos.x - e.getX();
-                double c2 = b.pos.y - e.getY();
-                double distance = Math.sqrt(Math.pow(c1, 2) + Math.pow(c2, 2));
-                if(distance<27){
-                    bulletsPlayer1.remove(j);
-                    obstacles.remove(i);
+        for (Obstacle o: obstacles) {
+            for (Bullet b: bulletsPlayer1) {
+                if (b.getHitBox().intersects( o.getY(), o.getX(),50, 50)){
+                    bulletsPlayer1.remove(b);
+                    obstacles.remove(o);
                 }
-
             }
         }
 
-        for(int i=0; i<obstacles.size(); i++){
-            for(int j=0; j<bulletsPlayer2.size(); j++){
-                Rectangle e= obstacles.get(i).getHitBox();
-                Bullet b= bulletsPlayer2.get(j);
-
-                double c1 = b.pos.x - e.getX();
-                double c2 = b.pos.y - e.getY();
-                double distance = Math.sqrt(Math.pow(c1, 2) + Math.pow(c2, 2));
-                if(distance<27){
-                    bulletsPlayer2.remove(j);
-                    obstacles.remove(i);
+        for (Obstacle o: obstacles) {
+            for (Bullet b: bulletsPlayer2) {
+                if (b.getHitBox().intersects( o.getY(), o.getX(),50, 50)){
+                    bulletsPlayer2.remove(b);
+                    obstacles.remove(o);
                 }
-
             }
         }
     }

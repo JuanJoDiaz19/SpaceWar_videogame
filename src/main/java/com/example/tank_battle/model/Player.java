@@ -22,6 +22,8 @@ public class Player {
     public Vector direction;
     public int numBullets;
 
+    public int numLifes;
+
 
     public Player(String name,Canvas canvas, String path){
         this.name=name;
@@ -32,6 +34,7 @@ public class Player {
         direction = new Vector(1,1);
         names = new ArrayList<>();
         numBullets = 5;
+        numLifes = 5;
     }
 
     public Player(String name, int wonMatches){

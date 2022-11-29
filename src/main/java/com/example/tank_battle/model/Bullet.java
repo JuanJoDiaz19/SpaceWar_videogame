@@ -14,7 +14,6 @@ public class Bullet {
     public Vector direction;
     private Image bulletImage;
     private int type;
-
     private Circle hitBox;
 
     public Bullet(Canvas canvas, GraphicsContext gc, Vector pos, Vector direction, int type) {
@@ -33,15 +32,21 @@ public class Bullet {
     }
 
     public void draw(){
-
         gc.save();
         gc.translate(pos.x, pos.y);
         gc.rotate(90 + direction.getAngle());
-        hitBox = new Circle(pos.x, pos.y, 20);
+        hitBox = new Circle(pos.x, pos.y, 10);
         gc.drawImage(bulletImage,-15,-20,20,20);
         gc.restore();
-
         pos.x += direction.x;
         pos.y += direction.y;
+    }
+
+    public Circle getHitBox() {
+        return hitBox;
+    }
+
+    public void setHitBox(Circle hitBox) {
+        this.hitBox = hitBox;
     }
 }

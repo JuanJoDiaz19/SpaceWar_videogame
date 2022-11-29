@@ -1,5 +1,6 @@
 package com.example.tank_battle;
 
+import com.example.tank_battle.efects.Sound;
 import com.example.tank_battle.model.Bullet;
 import com.example.tank_battle.model.Obstacle;
 import com.example.tank_battle.model.Player;
@@ -42,6 +43,11 @@ public class Gameplay implements Initializable {
     private int diedPlayer1;
 
     private int diedPlayer2;
+
+    //sounds
+    private Sound sound1;
+
+
     private Image backgroud;
     private Obstacle[][] obstaclesMap;
     private ArrayList<Obstacle> obstacles;

@@ -8,7 +8,8 @@ public class Singleton {
     public Player player2;
 
     private Singleton(){
-
+        this.player1=new Player();
+        this.player2=new Player();
     }
 
     public static Singleton getInstance(){
@@ -17,6 +18,10 @@ public class Singleton {
         }
 
         return instance;
+    }
+    public void createPlayers(String name1,String name2){
+        this.player1.setName(name1);
+        this.player2.setName(name2);
     }
 
     public Player getPlayer1(){

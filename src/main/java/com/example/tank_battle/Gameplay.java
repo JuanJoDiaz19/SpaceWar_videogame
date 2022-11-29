@@ -1,6 +1,5 @@
 package com.example.tank_battle;
 
-import com.example.tank_battle.efects.Sound;
 import com.example.tank_battle.model.Bullet;
 import com.example.tank_battle.model.Obstacle;
 import com.example.tank_battle.model.Player;
@@ -179,7 +178,10 @@ public class Gameplay implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        
+
+        labelP1.setText(Singleton.getInstance().player1.getName());
+        labelP2.setText(Singleton.getInstance().player2.getName());
+
         isPlayer1Exploded = false;
         isPlayer2Exploded = false;
         animationExplosionPlayer1 = 12;
@@ -246,8 +248,12 @@ public class Gameplay implements Initializable {
                 }
             }
         }
-        player1 = new Player("Juancho", canvas, "tank1.png");
-        player2 = new Player("Mateo", canvas, "tank2.png");
+        Singleton.getInstance().getPlayer1().setGc(canvas.getGraphicsContext2D());
+        Singleton.getInstance().getPlayer1().setTank("tank1.png");
+        Singleton.getInstance().getPlayer2().setGc(canvas.getGraphicsContext2D());
+        Singleton.getInstance().getPlayer2().setTank("tank2.png");
+        player1=Singleton.getInstance().getPlayer1();
+        player2=Singleton.getInstance().getPlayer2();
         draw();
     }
 

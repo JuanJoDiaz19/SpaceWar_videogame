@@ -16,9 +16,9 @@ public class HomeMenuController {
 
     @FXML
     void play(ActionEvent event) {
-        GameMain.showWindow("gameCanvas.fxml");
+        GameMain.showTransparentWindow("addNames.fxml");
         Stage currentStage = (Stage) playButton.getScene().getWindow();
-        currentStage.hide();
+        //currentStage.hide();
     }
 
     @FXML

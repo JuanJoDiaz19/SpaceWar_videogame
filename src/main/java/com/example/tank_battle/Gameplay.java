@@ -176,8 +176,8 @@ public class Gameplay implements Initializable {
         
         isPlayer1Exploded = false;
         isPlayer2Exploded = false;
-        animationExplosionPlayer1 = 0;
-        animationExplosionPlayer2 = 0;
+        animationExplosionPlayer1 = 12;
+        animationExplosionPlayer2 = 12;
 
         //Loading the images of the bullets
         withRedBullet = new Image("file:"+ GameMain.class.getResource("redBullet.png").getPath());
@@ -274,7 +274,7 @@ public class Gameplay implements Initializable {
                             detectionBulletCollisionWithPlayer();
                             doKeyboardActions();
                             detectedCollision();
-                            bulletInPlayer1();
+                            //bulletInPlayer1();
                         });
                         //Sleep (Mimiendo)
                         try {
@@ -288,8 +288,27 @@ public class Gameplay implements Initializable {
     }
 
     private void explosionAnimation() {
+        //System.out.println(isPlayer1Exploded);
+        //System.out.println(animationExplosionPlayer1);
         if (isPlayer1Exploded && animationExplosionPlayer1 > 0){
-
+            if(animationExplosionPlayer1 > 8){
+                gc.drawImage(exp1, player1.pos.x-40, player1.pos.y-40, 80, 80);
+            } else if (animationExplosionPlayer1 > 4) {
+                gc.drawImage(exp2, player1.pos.x-40, player1.pos.y-40, 80, 80);
+            } else {
+                gc.drawImage(exp3, player1.pos.x-40, player1.pos.y-40, 80, 80);
+            }
+            animationExplosionPlayer1--;
+        }
+        if (isPlayer2Exploded && animationExplosionPlayer2 > 0){
+            if(animationExplosionPlayer2 > 8){
+                gc.drawImage(exp1, player2.pos.x-40, player2.pos.y-40, 80, 80);
+            } else if (animationExplosionPlayer2 > 4) {
+                gc.drawImage(exp2, player2.pos.x-40, player2.pos.y-40, 80, 80);
+            } else {
+                gc.drawImage(exp3, player2.pos.x-40, player2.pos.y-40, 80, 80);
+            }
+            animationExplosionPlayer2--;
         }
     }
 
@@ -301,6 +320,7 @@ public class Gameplay implements Initializable {
             if(distance < 20){
                 bulletsPlayer1.remove(b);
                 player2.numLifes--;
+                if (player2.numLifes == 0)isPlayer2Exploded = true;
                 switch (player2.numLifes){
                         case 4:
                             h5p2.setImage(withoutHealth);
@@ -328,6 +348,7 @@ public class Gameplay implements Initializable {
             if(distance < 20){
                 bulletsPlayer2.remove(b);
                 player1.numLifes--;
+                if (player1.numLifes == 0 )isPlayer1Exploded = true;
                 switch (player1.numLifes){
                     case 4:
                         h5p1.setImage(withoutHealth);
@@ -593,7 +614,7 @@ public class Gameplay implements Initializable {
         }
     }
 
-    private void bulletInPlayer1(){
+   /*private void bulletInPlayer1(){
         for(int i=0; i<bulletsPlayer2.size(); i++){
             Bullet b= bulletsPlayer2.get(i);
 
@@ -608,6 +629,6 @@ public class Gameplay implements Initializable {
                 }
             }
         }
-    }
+    }*/
 
 }

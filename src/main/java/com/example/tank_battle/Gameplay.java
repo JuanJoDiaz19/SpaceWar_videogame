@@ -15,12 +15,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
 import javafx.util.Pair;
 
-import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -160,12 +156,14 @@ public class Gameplay implements Initializable {
     private boolean rightPressed = false;
     private boolean leftPressed = false;
 
-    private Image withBullet;
+    private Image withRedBullet;
+    private Image withBlueBullet;
     private Image withoutBullet;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        withBullet= new Image("file:"+ GameMain.class.getResource("redBullet.png").getPath());
+        withRedBullet = new Image("file:"+ GameMain.class.getResource("redBullet.png").getPath());
+        withBlueBullet= new Image("file:"+ GameMain.class.getResource("blueBullet.png").getPath());
         withoutBullet= new Image("file:"+ GameMain.class.getResource("projectileEmpty.png").getPath());
         gc = canvas.getGraphicsContext2D();
         canvas.setFocusTraversable(true);
@@ -384,20 +382,20 @@ public class Gameplay implements Initializable {
         }
         if(keyEvent.getCode() == KeyCode.E){
             player1.numBullets = 5;
-            b1p1.setImage(withBullet);
-            b2p1.setImage(withBullet);
-            b3p1.setImage(withBullet);
-            b4p1.setImage(withBullet);
-            b5p1.setImage(withBullet);
+            b1p1.setImage(withRedBullet);
+            b2p1.setImage(withRedBullet);
+            b3p1.setImage(withRedBullet);
+            b4p1.setImage(withRedBullet);
+            b5p1.setImage(withRedBullet);
         }
         if(keyEvent.getCode() == KeyCode.CONTROL){
             player2.numBullets = 5;
             player1.numBullets = 5;
-            b1p2.setImage(withBullet);
-            b2p2.setImage(withBullet);
-            b3p2.setImage(withBullet);
-            b4p2.setImage(withBullet);
-            b5p2.setImage(withBullet);
+            b1p2.setImage(withBlueBullet);
+            b2p2.setImage(withBlueBullet);
+            b3p2.setImage(withBlueBullet);
+            b4p2.setImage(withBlueBullet);
+            b5p2.setImage(withBlueBullet);
         }
     }
 

@@ -5,14 +5,14 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 public class Obstacle {
 
     private Canvas canvas;
     private GraphicsContext gc;
-
     private Image wall;
-
+    private Rectangle hitBox;
     private int x, y;
 
     public Obstacle(Canvas canvas, GraphicsContext gc, int x, int y, int type) {
@@ -30,7 +30,8 @@ public class Obstacle {
     }
 
     public void draw(){
-        gc.drawImage(wall ,y,x, 50,50   );
+        hitBox = new Rectangle(y+5, x+5, 40, 40);
+        gc.drawImage(wall, y,x, 50,50);
     }
 
     public int getX(){
@@ -41,4 +42,11 @@ public class Obstacle {
         return y;
     }
 
+    public Rectangle getHitBox() {
+        return hitBox;
+    }
+
+    public void setHitBox(Rectangle hitBox) {
+        this.hitBox = hitBox;
+    }
 }

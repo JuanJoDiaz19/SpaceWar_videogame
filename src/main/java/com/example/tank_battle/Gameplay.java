@@ -13,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.util.Pair;
 
@@ -74,7 +75,8 @@ public class Gameplay implements Initializable {
         walletsp= new ArrayList<>();
 
         //Initializing the matrix
-        Integer obstaclesInMap[][] = new Integer[][]{{null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null},
+        Integer obstaclesInMap[][] = new Integer[][]{
+                {null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null},
                 {null, 1, null,null, 2, null, null, null,null,null,null,null,null,null,null,  1, null, null,  2, null },
                 {null, 2, null,null, 1, null, null, 1,2,1,2,1,2,null,null, 2, null, null,  1, null },
                 {null, 1, null,null,2, null, null, null,null,null,null,null,null,null,null, 1, null, null,2, null },
@@ -120,13 +122,10 @@ public class Gameplay implements Initializable {
                             player1.draw();
                             player2.draw();
 
-                            for (int i = 0; i < obstaclesMap.length; i++) {
-                                for (int j = 0; j < obstaclesMap[0].length ; j++) {
-                                    if (obstaclesMap[i][j] != null) {
-                                        obstaclesMap[i][j].draw();
-                                    }
-                                }
+                            for (Obstacle ob : obstacles) {
+                                ob.draw();
                             }
+
                             for (int i = 0; i < bulletsPlayer1.size() ; i++) {
                                 bulletsPlayer1.get(i).draw();
                             }
@@ -134,7 +133,7 @@ public class Gameplay implements Initializable {
                                 bulletsPlayer2.get(i).draw();
                             }
                             //Colisiones
-                            //detectionCollision();
+                            detectionBulletCollision();
                             doKeyboardActions();
                         });
                         //Sleep (Mimiendo)
@@ -146,6 +145,20 @@ public class Gameplay implements Initializable {
                     }
                 }
         ).start();
+    }
+
+    private void detectionBulletCollision() {
+        /*for (int i = 0; i < bulletsPlayer1.size(); i++) {
+
+            if (obstacles.get(i).getHitBox().intersects(player1.pos.x+ player1.direction.x -15 , player1.pos.y+ player1.direction.y -15, 30, 30 )){
+                flag = true;
+                //System.out.println("Me gusta el chimbo");
+            }
+        }*/
+
+        for (int i = 0; i < bulletsPlayer2.size(); i++) {
+
+        }
     }
 
     private void onKeyReleased(KeyEvent keyEvent) {
@@ -222,12 +235,16 @@ public class Gameplay implements Initializable {
 
     private void doKeyboardActions() {
         if (Wpressed) {
-            boolean flag= true;
-            if(player1.pos.x<=canvas.getWidth() && player1.pos.x>0 && player1.pos.y<=canvas.getHeight() && player1.pos.y>0)
-                for(int i=0; i< walletsp.size(); i++){
-
+            if(player1.pos.x<=canvas.getWidth() && player1.pos.x>0 && player1.pos.y<=canvas.getHeight() && player1.pos.y>0){
+                boolean flag = false;
+                for (int i = 0; i < obstacles.size(); i++) {
+                    if (obstacles.get(i).getHitBox().intersects(player1.pos.x+ player1.direction.x -15 , player1.pos.y+ player1.direction.y -15, 30, 30 )){
+                        flag = true;
+                        //System.out.println("Me gusta el chimbo");
+                    }
                 }
-                if(flag) player1.moveForward();
+                if (!flag) player1.moveForward();
+            }
 
             if(player1.pos.x>canvas.getWidth()){
                 player1.pos.x=15;
@@ -244,8 +261,15 @@ public class Gameplay implements Initializable {
             player1.changeAngle(-3);
         }
         if (Spressed) {
-            if(player1.pos.x<=canvas.getWidth() && player1.pos.x>0 && player1.pos.y<=canvas.getHeight() && player1.pos.y>0)
-                player1.moveBackward();
+            if(player1.pos.x<=canvas.getWidth() && player1.pos.x>0 && player1.pos.y<=canvas.getHeight() && player1.pos.y>0){
+                boolean flag = false;
+                for (int i = 0; i < obstacles.size(); i++) {
+                    if (obstacles.get(i).getHitBox().intersects(player1.pos.x- player1.direction.x -15 , player1.pos.y- player1.direction.y -15, 30, 30 )){
+                        flag = true;
+                    }
+                }
+                if (!flag) player1.moveBackward();
+            }
             if(player1.pos.x>canvas.getWidth()){
                 player1.pos.x=15;
             }
@@ -264,8 +288,16 @@ public class Gameplay implements Initializable {
         }
         //Codigo pora el player 2
         if (upPressed) {
-            if(player2.pos.x<=canvas.getWidth() && player2.pos.x>0 && player2.pos.y<=canvas.getHeight() && player2.pos.y>0)
-                player2.moveForward();
+            if(player2.pos.x<=canvas.getWidth() && player2.pos.x>0 && player2.pos.y<=canvas.getHeight() && player2.pos.y>0){
+                boolean flag = false;
+                for (int i = 0; i < obstacles.size(); i++) {
+                    if (obstacles.get(i).getHitBox().intersects(player2.pos.x+ player2.direction.x -15 , player2.pos.y+ player2.direction.y -15, 30, 30 )){
+                        flag = true;
+                    }
+                }
+                if (!flag) player2.moveForward();
+            }
+
             if(player2.pos.x>canvas.getWidth()){
                 player2.pos.x=15;
             }
@@ -281,8 +313,15 @@ public class Gameplay implements Initializable {
             player2.changeAngle(-3);
         }
         if (downPressed) {
-            if(player2.pos.x<=canvas.getWidth() && player2.pos.x>0 && player2.pos.y<=canvas.getHeight() && player2.pos.y>0)
-                player2.moveBackward();
+            if(player2.pos.x<=canvas.getWidth() && player2.pos.x>0 && player2.pos.y<=canvas.getHeight() && player2.pos.y>0){
+                boolean flag = false;
+                for (int i = 0; i < obstacles.size(); i++) {
+                    if (obstacles.get(i).getHitBox().intersects(player2.pos.x- player2.direction.x -15 , player2.pos.y- player2.direction.y -15, 30, 30 )){
+                        flag = true;
+                    }
+                }
+                if (!flag) player2.moveBackward();
+            }
             if(player2.pos.x>canvas.getWidth()){
                 player2.pos.x=15;
 

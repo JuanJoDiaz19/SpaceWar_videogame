@@ -20,15 +20,18 @@ public class Player {
     private Image tank;
     public Vector pos;
     public Vector direction;
+    public int numBullets;
+
 
     public Player(String name,Canvas canvas, String path){
         this.name=name;
         gc = canvas.getGraphicsContext2D();
         String uri = "file:"+ GameMain.class.getResource(path).getPath();
         tank = new Image(uri);
-        pos = new Vector(100, 100);
+        pos = new Vector(250, 250);
         direction = new Vector(1,1);
         names = new ArrayList<>();
+        numBullets = 5;
     }
 
     public Player(String name, int wonMatches){
@@ -41,8 +44,13 @@ public class Player {
         gc.save();
         gc.translate(pos.x, pos.y);
         gc.rotate(90+direction.getAngle());
-        gc.drawImage(tank, -25,-25, 40,40);
+        gc.drawImage(tank, -15,-15, 40,40);
         gc.restore();
+    }
+
+    public void unDraw(){
+        gc.save();
+        gc.drawImage(null, 0,0,0,0);
     }
 
     public void changeAngle(double a){

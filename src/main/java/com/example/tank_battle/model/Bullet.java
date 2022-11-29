@@ -5,6 +5,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 public class Bullet {
     private Canvas canvas;
@@ -13,6 +14,8 @@ public class Bullet {
     public Vector direction;
     private Image bulletImage;
     private int type;
+
+    private Circle hitBox;
 
     public Bullet(Canvas canvas, GraphicsContext gc, Vector pos, Vector direction, int type) {
         this.canvas = canvas;
@@ -30,9 +33,11 @@ public class Bullet {
     }
 
     public void draw(){
+
         gc.save();
         gc.translate(pos.x, pos.y);
         gc.rotate(90 + direction.getAngle());
+        hitBox = new Circle(pos.x, pos.y, 20);
         gc.drawImage(bulletImage,-15,-20,20,20);
         gc.restore();
 

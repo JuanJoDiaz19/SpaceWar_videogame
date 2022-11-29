@@ -2,6 +2,7 @@ package com.example.tank_battle;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -9,22 +10,20 @@ import java.io.IOException;
 
 public class GameMain extends Application {
     @Override
-    public void start(Stage stage) throws IOException {
-        showWindow("scores.fxml");
+    public void start(Stage stage)  {
+        showWindow("homeMenu.fxml");
     }
-
     public static void showWindow(String fxml){
-        try{
+        try {
             FXMLLoader fxmlLoader = new FXMLLoader(GameMain.class.getResource(fxml));
-            System.out.println(fxmlLoader);
-            Scene scene;
-                scene =new Scene(fxmlLoader.load(), 1000, 700);
-
-            Stage window=new Stage();
+            Parent node = fxmlLoader.load();
+            Scene scene = new Scene(node);
+            Stage window = new Stage();
+            window.setTitle("SpaceWar");
             window.setScene(scene);
             window.show();
-        }catch(IOException e){
-            e.printStackTrace();
+        }catch (IOException ex){
+            ex.printStackTrace();
         }
     }
 

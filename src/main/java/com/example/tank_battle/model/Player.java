@@ -5,9 +5,15 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
+import java.util.ArrayList;
+
 public class Player {
     private String name;
+    private ArrayList<String> names;
     private int wonMatches;
+
+    private Player left;
+    private Player right;
 
     private Canvas canvas;
     private GraphicsContext gc;
@@ -22,6 +28,13 @@ public class Player {
         tank = new Image(uri);
         pos = new Vector(100, 100);
         direction = new Vector(1,1);
+        names = new ArrayList<>();
+    }
+
+    public Player(String name, int wonMatches){
+        this.name = name;
+        this.wonMatches = wonMatches;
+        names = new ArrayList<>();
     }
 
     public void draw(){
@@ -70,4 +83,31 @@ public class Player {
         this.wonMatches = wonMatches;
     }
 
+    public Player getLeft() {
+        return left;
+    }
+
+    public void setLeft(Player left) {
+        this.left = left;
+    }
+
+    public Player getRight() {
+        return right;
+    }
+
+    public void setRight(Player right) {
+        this.right = right;
+    }
+
+    public void addArray(String value){
+        names.add(value);
+    }
+
+    public boolean empty() {
+        return names.isEmpty();
+    }
+
+    public ArrayList<String> getNames(){
+        return new ArrayList<>(names);
+    }
 }

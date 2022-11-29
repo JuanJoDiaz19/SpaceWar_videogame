@@ -10,11 +10,22 @@ import java.io.IOException;
 public class GameMain extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(GameMain.class.getResource("gameCanvas.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Hello!");
-        stage.setScene(scene);
-        stage.show();
+        showWindow("scores.fxml");
+    }
+
+    public static void showWindow(String fxml){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(GameMain.class.getResource(fxml));
+            System.out.println(fxmlLoader);
+            Scene scene;
+                scene =new Scene(fxmlLoader.load(), 1000, 700);
+
+            Stage window=new Stage();
+            window.setScene(scene);
+            window.show();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {

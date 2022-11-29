@@ -9,7 +9,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
@@ -18,6 +20,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Pair;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -47,6 +50,104 @@ public class Gameplay implements Initializable {
     private Image backgroud;
     private Obstacle[][] obstaclesMap;
     private ArrayList<Obstacle> obstacles;
+    @FXML
+    private ImageView b1cpu;
+
+    @FXML
+    private ImageView b1p1;
+
+    @FXML
+    private ImageView b1p2;
+
+    @FXML
+    private ImageView b2cpu;
+
+    @FXML
+    private ImageView b2p1;
+
+    @FXML
+    private ImageView b2p2;
+
+    @FXML
+    private ImageView b3cpu;
+
+    @FXML
+    private ImageView b3p1;
+
+    @FXML
+    private ImageView b3p2;
+
+    @FXML
+    private ImageView b4cpu;
+
+    @FXML
+    private ImageView b4p1;
+
+    @FXML
+    private ImageView b4p2;
+
+    @FXML
+    private ImageView b5cpu;
+
+    @FXML
+    private ImageView b5p1;
+
+    @FXML
+    private ImageView b5p2;
+
+    @FXML
+    private ImageView h1cpu;
+
+    @FXML
+    private ImageView h1p1;
+
+    @FXML
+    private ImageView h1p2;
+
+    @FXML
+    private ImageView h2cpu;
+
+    @FXML
+    private ImageView h2p1;
+
+    @FXML
+    private ImageView h2p2;
+
+    @FXML
+    private ImageView h3cpu;
+
+    @FXML
+    private ImageView h3p1;
+
+    @FXML
+    private ImageView h3p2;
+
+    @FXML
+    private ImageView h4cpu;
+
+    @FXML
+    private ImageView h4p1;
+
+    @FXML
+    private ImageView h4p2;
+
+    @FXML
+    private ImageView h5cpu;
+
+    @FXML
+    private ImageView h5p1;
+
+    @FXML
+    private ImageView h5p2;
+
+    @FXML
+    private Label labelCPU;
+
+    @FXML
+    private Label labelP1;
+
+    @FXML
+    private Label labelP2;
     
     //Estados de las teclas para el jugador 1
     private boolean Wpressed = false;
@@ -60,9 +161,13 @@ public class Gameplay implements Initializable {
     private boolean rightPressed = false;
     private boolean leftPressed = false;
 
+    private Image withBullet;
+    private Image withoutBullet;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        withBullet= new Image("file:"+ GameMain.class.getResource("redBullet.png").getPath());
+        withoutBullet= new Image("file:"+ GameMain.class.getResource("projectileEmpty.png").getPath());
         gc = canvas.getGraphicsContext2D();
         canvas.setFocusTraversable(true);
 
@@ -215,17 +320,62 @@ public class Gameplay implements Initializable {
             Bullet bullet = new Bullet(canvas, gc, new Vector(player1.pos.x, player1.pos.y ), new Vector(2.5*player1.direction.x, 2.5*player1.direction.y ), 1);
             bulletsPlayer1.add(bullet);
             player1.numBullets--;
+            switch (player1.numBullets){
+                case 4:
+                    b5p1.setImage(withoutBullet);
+                    break;
+                case 3:
+                    b4p1.setImage(withoutBullet);
+                    break;
+                case 2:
+                    b3p1.setImage(withoutBullet);
+                    break;
+                case 1:
+                    b2p1.setImage(withoutBullet);
+                    break;
+                case 0:
+                    b1p1.setImage(withoutBullet);
+                    break;
+            }
         }
         if(keyEvent.getCode() == KeyCode.SHIFT && player2.numBullets > 0) {
             Bullet bullet = new Bullet(canvas, gc, new Vector(player2.pos.x, player2.pos.y ), new Vector(2.5*player2.direction.x, 2.5*player2.direction.y ), 2);
             bulletsPlayer2.add(bullet);
             player2.numBullets--;
+            switch (player2.numBullets){
+                case 4:
+                    b5p2.setImage(withoutBullet);
+                    break;
+                case 3:
+                    b4p2.setImage(withoutBullet);
+                    break;
+                case 2:
+                    b3p2.setImage(withoutBullet);
+                    break;
+                case 1:
+                    b2p2.setImage(withoutBullet);
+                    break;
+                case 0:
+                    b1p2.setImage(withoutBullet);
+                    break;
+            }
         }
         if(keyEvent.getCode() == KeyCode.E){
             player1.numBullets = 5;
+            b1p1.setImage(withBullet);
+            b2p1.setImage(withBullet);
+            b3p1.setImage(withBullet);
+            b4p1.setImage(withBullet);
+            b5p1.setImage(withBullet);
         }
         if(keyEvent.getCode() == KeyCode.CONTROL){
             player2.numBullets = 5;
+            player1.numBullets = 5;
+            b1p2.setImage(withBullet);
+            b2p2.setImage(withBullet);
+            b3p2.setImage(withBullet);
+            b4p2.setImage(withBullet);
+            b5p2.setImage(withBullet);
         }
     }
 

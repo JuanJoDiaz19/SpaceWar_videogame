@@ -21,7 +21,6 @@ public class Player {
     public Vector pos;
     public Vector direction;
     public int numBullets;
-
     public int numLifes;
 
 
@@ -47,7 +46,7 @@ public class Player {
         gc.save();
         gc.translate(pos.x, pos.y);
         gc.rotate(90+direction.getAngle());
-        gc.drawImage(tank, -15,-15, 40,40);
+        gc.drawImage(tank, -20,-20, 40,40);
         gc.restore();
     }
 

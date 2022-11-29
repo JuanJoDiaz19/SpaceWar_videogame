@@ -159,12 +159,38 @@ public class Gameplay implements Initializable {
     private Image withRedBullet;
     private Image withBlueBullet;
     private Image withoutBullet;
+    private Image withHealth;
+    private Image withoutHealth;
+
+    private Image exp1;
+    private Image exp2;
+    private Image exp3;
+    
+    private boolean isPlayer1Exploded;
+    private boolean isPlayer2Exploded;
+    private int animationExplosionPlayer1;
+    private  int animationExplosionPlayer2;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        
+        isPlayer1Exploded = false;
+        isPlayer2Exploded = false;
+        animationExplosionPlayer1 = 0;
+        animationExplosionPlayer2 = 0;
+
+        //Loading the images of the bullets
         withRedBullet = new Image("file:"+ GameMain.class.getResource("redBullet.png").getPath());
         withBlueBullet= new Image("file:"+ GameMain.class.getResource("blueBullet.png").getPath());
         withoutBullet= new Image("file:"+ GameMain.class.getResource("projectileEmpty.png").getPath());
+        withHealth = new Image("file:"+ GameMain.class.getResource("life.png").getPath());
+        withoutHealth = new Image("file:"+ GameMain.class.getResource("noLife.png").getPath());
+        //Loading the images of the explotion
+
+        exp1 = new Image("file:"+ GameMain.class.getResource("exp1.png").getPath());
+        exp1 = new Image("file:"+ GameMain.class.getResource("exp2.png").getPath());
+        exp1 = new Image("file:"+ GameMain.class.getResource("exp2.png").getPath());
+
         gc = canvas.getGraphicsContext2D();
         canvas.setFocusTraversable(true);
 
@@ -240,6 +266,10 @@ public class Gameplay implements Initializable {
                             for (int i = 0; i < bulletsPlayer2.size() ; i++) {
                                 bulletsPlayer2.get(i).draw();
                             }
+
+                            //Explosion animation
+                            explosionAnimation();
+
                             //Colisiones
                             detectionBulletCollisionWithPlayer();
                             doKeyboardActions();
@@ -257,12 +287,18 @@ public class Gameplay implements Initializable {
         ).start();
     }
 
+    private void explosionAnimation() {
+        if (isPlayer1Exploded && animationExplosionPlayer1 > 0){
+
+        }
+    }
+
     private void detectionBulletCollisionWithPlayer() {
         for (Bullet b : bulletsPlayer1) {
             double c1 = b.pos.x - player2.pos.x;
             double c2 = b.pos.y - player2.pos.y;
             double distance = Math.sqrt(Math.pow(c1, 2) + Math.pow(c2, 2));
-            if(distance < 10){
+            if(distance < 20){
                 bulletsPlayer1.remove(b);
                 player2.numLifes--;
                 return;
@@ -273,7 +309,7 @@ public class Gameplay implements Initializable {
             double c1 = b.pos.x - player1.pos.x;
             double c2 = b.pos.y - player1.pos.y;
             double distance = Math.sqrt(Math.pow(c1, 2) + Math.pow(c2, 2));
-            if(distance < 10){
+            if(distance < 20){
                 bulletsPlayer2.remove(b);
                 player1.numLifes--;
                 return;

@@ -35,7 +35,7 @@ public class Bullet {
         gc.save();
         gc.translate(pos.x, pos.y);
         gc.rotate(90 + direction.getAngle());
-        hitBox = new Circle(pos.x, pos.y, 10);
+        hitBox = new Circle(pos.x, pos.y, 15);
         gc.drawImage(bulletImage,-15,-20,20,20);
         gc.restore();
         pos.x += direction.x;

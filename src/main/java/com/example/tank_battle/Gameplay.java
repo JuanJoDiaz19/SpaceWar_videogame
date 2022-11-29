@@ -332,7 +332,7 @@ public class Gameplay implements Initializable {
                             h3p2.setImage(withoutHealth);
                             break;
                         case 1:
-                            h2p2.setImage(withHealth);
+                            h2p2.setImage(withoutHealth);
                             break;
                         case 0:
                             h1p2.setImage(withoutHealth);
@@ -360,7 +360,7 @@ public class Gameplay implements Initializable {
                         h3p1.setImage(withoutHealth);
                         break;
                     case 1:
-                        h2p1.setImage(withHealth);
+                        h2p1.setImage(withoutHealth);
                         break;
                     case 0:
                         h1p1.setImage(withoutHealth);

@@ -259,9 +259,12 @@ public class Gameplay implements Initializable {
                             gc.save();
                             gc.drawImage(backgroud, 0, 0, canvas.getWidth(), canvas.getHeight());
                             gc.restore();
-                            player1.draw();
-                            player2.draw();
-
+                            if (animationExplosionPlayer1 > 0){
+                                player1.draw();
+                            }
+                            if(animationExplosionPlayer2 > 0 ){
+                                player2.draw();
+                            }
                             for (Obstacle ob : obstacles) {
                                 ob.draw();
                             }

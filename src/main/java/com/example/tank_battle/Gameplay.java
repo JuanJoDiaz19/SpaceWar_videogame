@@ -40,6 +40,10 @@ public class Gameplay implements Initializable {
 
     private ArrayList<Bullet> bulletsPlayer1;
     private ArrayList<Bullet> bulletsPlayer2;
+
+    private int diedPlayer1;
+
+    private int diedPlayer2;
     private Image backgroud;
     private Obstacle[][] obstaclesMap;
     private ArrayList<Obstacle> obstacles;
@@ -74,6 +78,7 @@ public class Gameplay implements Initializable {
         bulletsPlayer2 = new ArrayList<>();
         obstacles = new ArrayList<>();
         walletsp= new ArrayList<>();
+        diedPlayer1=0;
 
         //Initializing the matrix
         Integer obstaclesInMap[][] = new Integer[][]{
@@ -137,6 +142,7 @@ public class Gameplay implements Initializable {
                             //detectionBulletCollision();
                             doKeyboardActions();
                             detectedCollision();
+                            bulletInPlayer1();
                         });
                         //Sleep (Mimiendo)
                         try {
@@ -359,6 +365,23 @@ public class Gameplay implements Initializable {
                     obstacles.remove(i);
                 }
 
+            }
+        }
+    }
+
+    private void bulletInPlayer1(){
+        for(int i=0; i<bulletsPlayer2.size(); i++){
+            Bullet b= bulletsPlayer2.get(i);
+
+            double c1= b.pos.x-player1.pos.x;
+            double c2= b.pos.y-player1.pos.y;
+            double distance = Math.sqrt(Math.pow(c1, 2) + Math.pow(c2, 2));
+            if(distance<27) {
+                diedPlayer1++;
+                if(diedPlayer1==3){
+                    System.out.println("HPPPPP");
+                    //player1=null;
+                }
             }
         }
     }

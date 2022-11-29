@@ -35,6 +35,11 @@ public class Player {
         gc.restore();
     }
 
+    public void unDraw(){
+        gc.save();
+        gc.drawImage(null, 0,0,0,0);
+    }
+
     public void changeAngle(double a){
         double amp = direction.getAmplitude();
         double angle = direction.getAngle();

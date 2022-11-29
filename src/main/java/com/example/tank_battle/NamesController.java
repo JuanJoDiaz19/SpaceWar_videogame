@@ -21,6 +21,8 @@ public class NamesController {
 
     @FXML
     private TextField p2Name;
+    @FXML
+    private TextField p3Name;
 
     @FXML
     private Button playBTN;
@@ -34,7 +36,7 @@ public class NamesController {
     @FXML
     void play(ActionEvent event) {
         Stage currentStage = (Stage) cancelBTN.getScene().getWindow();
-        Singleton.getInstance().createPlayers(p1Name.getText(), p2Name.getText());
+        Singleton.getInstance().createPlayers(p1Name.getText(), p2Name.getText(),p3Name.getText());
         GameMain.showWindow("gameCanvas.fxml");
         currentStage.hide();
         GameMain.hideWindow("homeMenu.fxml");

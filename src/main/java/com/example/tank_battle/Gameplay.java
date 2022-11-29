@@ -183,6 +183,7 @@ public class Gameplay implements Initializable {
 
         labelP1.setText(Singleton.getInstance().player1.getName());
         labelP2.setText(Singleton.getInstance().player2.getName());
+        labelCPU.setText(Singleton.getInstance().player3.getName());
 
         isPlayer1Exploded = false;
         isPlayer2Exploded = false;

@@ -6,10 +6,12 @@ public class Singleton {
 
     public Player player1;
     public Player player2;
+    public Player player3;
 
     private Singleton(){
         this.player1=new Player();
         this.player2=new Player();
+        this.player3=new Player();
     }
 
     public static Singleton getInstance(){
@@ -19,9 +21,10 @@ public class Singleton {
 
         return instance;
     }
-    public void createPlayers(String name1,String name2){
+    public void createPlayers(String name1,String name2,String name3){
         this.player1.setName(name1);
         this.player2.setName(name2);
+        this.player3.setName(name3);
     }
 
     public Player getPlayer1(){

@@ -25,14 +25,14 @@
                      <children>
                         <VBox alignment="CENTER" prefHeight="285.0" prefWidth="150.0" style="-fx-background-color: #000000; -fx-background-radius: 27;">
                            <children>
-                              <Label fx:id="label1" text="Enter Names:" textFill="WHITE">
-                                 <font>
-                                    <Font name="Leelawadee UI Bold" size="28.0" />
-                                 </font>
+                              <ImageView fitHeight="150.0" fitWidth="193.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@Enter%20names.png" />
+                                 </image>
                                  <VBox.margin>
-                                    <Insets bottom="25.0" top="10.0" />
+                                    <Insets bottom="8.0" top="15.0" />
                                  </VBox.margin>
-                              </Label>
+                              </ImageView>
                               <VBox prefHeight="200.0" prefWidth="100.0">
                                  <children>
                                     <Label text="Player 1 name:" textFill="WHITE">
@@ -67,15 +67,28 @@
                                     </TextField>
                                  </children>
                               </VBox>
+                              <VBox prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Label text="Player 3 name:" textFill="WHITE">
+                                       <VBox.margin>
+                                          <Insets left="15.0" />
+                                       </VBox.margin>
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="p3Name" promptText="Name" style="-fx-background-color: #5e5e5e; -fx-text-fill: #FFFFFF;">
+                                       <VBox.margin>
+                                          <Insets left="10.0" right="10.0" />
+                                       </VBox.margin>
+                                    </TextField>
+                                 </children>
+                              </VBox>
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <Button fx:id="cancelBTN" mnemonicParsing="false" onAction="#cancelA" style="-fx-background-color: #000000; -fx-border-radius: 7; -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1),10.0,0.0,0.0,10.0); -fx-border-width: 3; -fx-border-color: #FFFFFF;" text="X" textFill="WHITE">
-                                       <font>
-                                          <Font name="System Bold" size="12.0" />
-                                       </font></Button>
                                     <Button fx:id="playBTN" mnemonicParsing="false" onAction="#play" style="-fx-background-color: #000000; -fx-border-radius: 7; -fx-border-width: 3; -fx-border-color: #FFFFFF;" textFill="WHITE">
                                        <HBox.margin>
-                                          <Insets left="10.0" />
+                                          <Insets />
                                        </HBox.margin>
                                        <graphic>
                                           <ImageView fitHeight="19.0" fitWidth="145.0" pickOnBounds="true" preserveRatio="true">
@@ -85,6 +98,20 @@
                                           </ImageView>
                                        </graphic>
                                     </Button>
+                                    <Button fx:id="cancelBTN" mnemonicParsing="false" onAction="#cancelA" prefHeight="34.0" prefWidth="59.0" style="-fx-background-color: #000000; -fx-border-radius: 7; -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1),10.0,0.0,0.0,10.0); -fx-border-width: 3; -fx-border-color: #FFFFFF;" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                       <graphic>
+                                          <ImageView fitHeight="19.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@Exit.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <HBox.margin>
+                                          <Insets left="15.0" />
+                                       </HBox.margin></Button>
                                  </children>
                                  <VBox.margin>
                                     <Insets bottom="20.0" />

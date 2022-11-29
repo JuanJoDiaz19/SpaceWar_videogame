@@ -16,6 +16,8 @@ public class Player {
     public Vector direction;
     public int numBullets;
 
+    public int numLifes;
+
 
     public Player(String name,Canvas canvas, String path){
         this.name=name;
@@ -25,6 +27,7 @@ public class Player {
         pos = new Vector(250, 250);
         direction = new Vector(1,1);
         numBullets = 5;
+        numLifes = 5;
     }
 
     public void draw(){

@@ -40,7 +40,6 @@ public class Gameplay implements Initializable {
 
     //Bullets in the game
     private ArrayList<Pair<Integer,Integer>> walletsp;
-
     private ArrayList<Bullet> bulletsPlayer1;
     private ArrayList<Bullet> bulletsPlayer2;
 
@@ -171,8 +170,8 @@ public class Gameplay implements Initializable {
         gc = canvas.getGraphicsContext2D();
         canvas.setFocusTraversable(true);
 
-        String uriBackgroud = "file:"+ GameMain.class.getResource("gameplayBackground.png").getPath();
-        backgroud = new Image(uriBackgroud);
+        String uriBackground = "file:"+ GameMain.class.getResource("gameplayBackground.png").getPath();
+        backgroud = new Image(uriBackground);
 
         canvas.setOnKeyPressed(this::onKeyPressed);
         canvas.setOnKeyReleased(this::onKeyReleased);
@@ -244,7 +243,7 @@ public class Gameplay implements Initializable {
                                 bulletsPlayer2.get(i).draw();
                             }
                             //Colisiones
-                            //detectionBulletCollision();
+                            detectionBulletCollisionWithPlayer();
                             doKeyboardActions();
                             detectedCollision();
                             bulletInPlayer1();
@@ -260,6 +259,29 @@ public class Gameplay implements Initializable {
         ).start();
     }
 
+    private void detectionBulletCollisionWithPlayer() {
+        for (Bullet b : bulletsPlayer1) {
+            double c1 = b.pos.x - player2.pos.x;
+            double c2 = b.pos.y - player2.pos.y;
+            double distance = Math.sqrt(Math.pow(c1, 2) + Math.pow(c2, 2));
+            if(distance < 10){
+                bulletsPlayer1.remove(b);
+                player2.numLifes--;
+                return;
+            }
+        }
+
+        for (Bullet b : bulletsPlayer2) {
+            double c1 = b.pos.x - player1.pos.x;
+            double c2 = b.pos.y - player1.pos.y;
+            double distance = Math.sqrt(Math.pow(c1, 2) + Math.pow(c2, 2));
+            if(distance < 10){
+                bulletsPlayer2.remove(b);
+                player1.numLifes--;
+                return;
+            }
+        }
+    }
 
 
     private void onKeyReleased(KeyEvent keyEvent) {
@@ -386,7 +408,6 @@ public class Gameplay implements Initializable {
                 for (int i = 0; i < obstacles.size(); i++) {
                     if (obstacles.get(i).getHitBox().intersects(player1.pos.x+ player1.direction.x -15 , player1.pos.y+ player1.direction.y -15, 30, 30 )){
                         flag = true;
-                        //System.out.println("Me gusta el chimbo");
                     }
                 }
                 if (!flag) player1.moveForward();
@@ -486,35 +507,21 @@ public class Gameplay implements Initializable {
     }
 
     private void detectedCollision(){
-        for(int i=0; i<obstacles.size(); i++){
-            for(int j=0; j<bulletsPlayer1.size(); j++){
-                Rectangle e= obstacles.get(i).getHitBox();
-                Bullet b= bulletsPlayer1.get(j);
-
-                double c1 = b.pos.x - e.getX();
-                double c2 = b.pos.y - e.getY();
-                double distance = Math.sqrt(Math.pow(c1, 2) + Math.pow(c2, 2));
-                if(distance<27){
-                    bulletsPlayer1.remove(j);
-                    obstacles.remove(i);
+        for (Obstacle o: obstacles) {
+            for (Bullet b: bulletsPlayer1) {
+                if (b.getHitBox().intersects( o.getY(), o.getX(),50, 50)){
+                    bulletsPlayer1.remove(b);
+                    obstacles.remove(o);
                 }
-
             }
         }
 
-        for(int i=0; i<obstacles.size(); i++){
-            for(int j=0; j<bulletsPlayer2.size(); j++){
-                Rectangle e= obstacles.get(i).getHitBox();
-                Bullet b= bulletsPlayer2.get(j);
-
-                double c1 = b.pos.x - e.getX();
-                double c2 = b.pos.y - e.getY();
-                double distance = Math.sqrt(Math.pow(c1, 2) + Math.pow(c2, 2));
-                if(distance<27){
-                    bulletsPlayer2.remove(j);
-                    obstacles.remove(i);
+        for (Obstacle o: obstacles) {
+            for (Bullet b: bulletsPlayer2) {
+                if (b.getHitBox().intersects( o.getY(), o.getX(),50, 50)){
+                    bulletsPlayer2.remove(b);
+                    obstacles.remove(o);
                 }
-
             }
         }
     }

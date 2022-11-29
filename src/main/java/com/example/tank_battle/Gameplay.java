@@ -1,5 +1,7 @@
 package com.example.tank_battle;
 
+import com.example.tank_battle.control.Singleton;
+import com.example.tank_battle.efects.Sound;
 import com.example.tank_battle.model.Bullet;
 import com.example.tank_battle.model.Obstacle;
 import com.example.tank_battle.model.Player;

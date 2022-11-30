@@ -2,10 +2,7 @@ package com.example.tank_battle;
 
 import com.example.tank_battle.control.Singleton;
 import com.example.tank_battle.efects.Sound;
-import com.example.tank_battle.model.Bullet;
-import com.example.tank_battle.model.Obstacle;
-import com.example.tank_battle.model.Player;
-import com.example.tank_battle.model.Vector;
+import com.example.tank_battle.model.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -370,6 +367,7 @@ public class Gameplay implements Initializable {
             out=Singleton.getInstance().getPlayer2().getName();
 
         }
+        Scoreboard.getInstance().insert(new Player(out));
         if(!out.equals("")){
             Singleton.getInstance().winningTeam=out;
             GameMain.showTransparentWindow("winning.fxml");

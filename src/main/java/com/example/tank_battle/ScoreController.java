@@ -153,12 +153,6 @@ public class ScoreController implements Initializable {
 
         drawBackground();
         setFonts();
-        Scoreboard.getInstance().insert(new Player("san", 5));
-        Scoreboard.getInstance().insert(new Player("jua", 3));
-        Scoreboard.getInstance().insert(new Player("ana", 6));
-        Scoreboard.getInstance().insert(new Player("mat", 2));
-        Scoreboard.getInstance().insert(new Player("mat", 2));
-
         updateSb();
     }
 
@@ -211,47 +205,48 @@ public class ScoreController implements Initializable {
     }
 
     public void updateSb(){
-        ArrayList<Pair<String, Integer>> players = Scoreboard.getInstance().updateLeaderboard();
-
-        if(players.size()>=1 && players.get(0)!=null){
-            name1.setText(players.get(0).getA());
-            score1.setText("won: "+players.get(0).getB() + "");
-        }
-        if(players.size()>=2 && players.get(1)!=null){
-            name2.setText(players.get(1).getA());
-            score2.setText("won: "+players.get(1).getB() + "");
-        }
-        if(players.size()>=3 && players.get(2)!=null){
-            name3.setText(players.get(2).getA());
-            score3.setText("won: "+players.get(2).getB() + "");
-        }
-        if(players.size()>=4 && players.get(3)!=null){
-            name4.setText(players.get(3).getA());
-            score4.setText("won: "+players.get(3).getB() + "");
-        }
-        if(players.size()>=5 && players.get(4)!=null){
-            name5.setText(players.get(4).getA());
-            score5.setText("won: "+players.get(4).getB() + "");
-        }
-        if(players.size()>=6 && players.get(5)!=null){
-            name6.setText(players.get(5).getA());
-            score6.setText("won: "+players.get(5).getB() + "");
-        }
-        if(players.size()>=7 && players.get(6)!=null){
-            name7.setText(players.get(6).getA());
-            score7.setText("won: "+players.get(6).getB() + "");
-        }
-        if(players.size()>=8 && players.get(7)!=null){
-            name8.setText(players.get(7).getA());
-            score8.setText("won: "+players.get(7).getB() + "");
-        }
-        if(players.size()>=9 && players.get(8)!=null){
-            name9.setText(players.get(8).getA());
-            score9.setText("won: "+players.get(8).getB() + "");
-        }
-        if(players.size()>=10 && players.get(9)!=null){
-            name10.setText(players.get(9).getA());
-            score10.setText("won: "+players.get(9).getB() + "");
+        ArrayList<Player> players = Scoreboard.getInstance().getPlayers();
+        if(players!=null) {
+            if (players.size() >= 1 && players.get(0) != null) {
+                name1.setText(players.get(0).getName());
+                score1.setText("won: " + players.get(0).getGamesWon() + "");
+            }
+            if (players.size() >= 2 && players.get(1) != null) {
+                name2.setText(players.get(1).getName());
+                score2.setText("won: " + players.get(1).getGamesWon() + "");
+            }
+            if (players.size() >= 3 && players.get(2) != null) {
+                name3.setText(players.get(2).getName());
+                score3.setText("won: " + players.get(2).getGamesWon() + "");
+            }
+            if (players.size() >= 4 && players.get(3) != null) {
+                name4.setText(players.get(3).getName());
+                score4.setText("won: " + players.get(3).getGamesWon() + "");
+            }
+            if (players.size() >= 5 && players.get(4) != null) {
+                name5.setText(players.get(4).getName());
+                score5.setText("won: " + players.get(4).getGamesWon() + "");
+            }
+            if (players.size() >= 6 && players.get(5) != null) {
+                name6.setText(players.get(5).getName());
+                score6.setText("won: " + players.get(5).getGamesWon() + "");
+            }
+            if (players.size() >= 7 && players.get(6) != null) {
+                name7.setText(players.get(6).getName());
+                score7.setText("won: " + players.get(6).getGamesWon() + "");
+            }
+            if (players.size() >= 8 && players.get(7) != null) {
+                name8.setText(players.get(7).getName());
+                score8.setText("won: " + players.get(7).getGamesWon() + "");
+            }
+            if (players.size() >= 9 && players.get(8) != null) {
+                name9.setText(players.get(8).getName());
+                score9.setText("won: " + players.get(8).getGamesWon() + "");
+            }
+            if (players.size() >= 10 && players.get(9) != null) {
+                name10.setText(players.get(9).getName());
+                score10.setText("won: " + players.get(9).getGamesWon() + "");
+            }
         }
 
     }

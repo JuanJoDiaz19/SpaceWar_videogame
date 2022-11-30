@@ -9,10 +9,8 @@ import java.util.ArrayList;
 
 public class Player {
     private String name;
-    private ArrayList<String> names;
-    private int wonMatches;
-    private Player left;
-    private Player right;
+    private int gamesWon;
+
     private Canvas canvas;
 
     private GraphicsContext gc;
@@ -37,7 +35,7 @@ public class Player {
             direction = new Vector(0,1);
         }
         this.type = type;
-        names = new ArrayList<>();
+        gamesWon = 1;
         numBullets = 5;
         numLifes = 5;
     }
@@ -49,10 +47,9 @@ public class Player {
         tank = new Image(uri);
     }
 
-    public Player(String name, int wonMatches){
+    public Player(String name){
         this.name = name;
-        this.wonMatches = wonMatches;
-        names = new ArrayList<>();
+        gamesWon = 1;
     }
 
     public void draw(){
@@ -103,41 +100,6 @@ public class Player {
         this.name=name;
     }
 
-    public int getWonMatches(){
-        return wonMatches;
-    }
-
-    public void setWonMatches(int wonMatches){
-        this.wonMatches = wonMatches;
-    }
-
-    public Player getLeft() {
-        return left;
-    }
-
-    public void setLeft(Player left) {
-        this.left = left;
-    }
-
-    public Player getRight() {
-        return right;
-    }
-
-    public void setRight(Player right) {
-        this.right = right;
-    }
-
-    public void addArray(String value){
-        names.add(value);
-    }
-
-    public boolean empty() {
-        return names.isEmpty();
-    }
-
-    public ArrayList<String> getNames(){
-        return new ArrayList<>(names);
-    }
     public GraphicsContext getGc() {
         return gc;
     }
@@ -150,5 +112,13 @@ public class Player {
     }
     public Image getTank() {
         return tank;
+    }
+
+    public int getGamesWon() {
+        return gamesWon;
+    }
+
+    public void setGamesWon(int gamesWon) {
+        this.gamesWon = gamesWon;
     }
 }

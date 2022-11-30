@@ -1,5 +1,7 @@
 package com.example.tank_battle;
 
+import com.example.tank_battle.model.Player;
+import com.example.tank_battle.model.Scoreboard;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

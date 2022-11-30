@@ -1,77 +1,51 @@
 package com.example.tank_battle.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Scoreboard {
 
-    private Player root;
-    ArrayList<Pair<String, Integer>> players = new ArrayList<>();
+    ArrayList<Player> players = new ArrayList<>();
     public static Scoreboard instance = new Scoreboard();
 
     public Scoreboard() {
 
     }
 
-    public void insert(Player current) {
-        if (root == null) {
-            root = current;
-        } else {
-            insert(current, root);
-        }
-    }
+    public void insert(Player p){
 
-    private void insert(Player player, Player current) {
-        if (player.getWonMatches() == 0) return;
-        if (player.getWonMatches() == current.getWonMatches()) {
-            //si es igual, en este caso lo guardamos en el arraylist de nombres del nodo con el mismo score
-            current.addArray(player.getName());
-
-        }
-        if (player.getWonMatches() < current.getWonMatches()) {
-            //izauierda
-            if (current.getLeft() != null) {
-                insert(player, current.getLeft());
-            } else {
-                current.setLeft(player);
+        if(search(p)==null){
+            players.add(p);
+        }else wonAGame(search(p));;
+        players.sort(new Comparator<Player>() {
+            @Override
+            public int compare(Player o1, Player o2) {
+                return o1.getGamesWon() - o2.getGamesWon();
             }
-        } else if (player.getWonMatches() > current.getWonMatches()) {
-            //derecha
-            if (current.getRight() != null) {
-                insert(player, current.getRight());
-            } else {
-                current.setRight(player);
-            }
+        });
+        Collections.reverse(players);
+
+    }
+
+    public Player search(Player p){
+        for(Player x : players){
+            if(p.getName().equals(x.getName()))
+                return x;
         }
+        return null;
     }
 
-    public ArrayList<Pair<String, Integer>> printScore(Player current, int n) {
-        if (current == null) {
-            return players;
-        }
-        printScore(current.getRight(), n);
-        players.add(new Pair<>(current.getName(), current.getWonMatches()));
-        if (!current.empty()) {
-            for (String x : current.getNames()) {
-                players.add(new Pair<>(x, current.getWonMatches()));
-            }
-        }
-
-        n++;
-
-        return printScore(current.getLeft(), n);
+    public void wonAGame(Player p){
+        p.setGamesWon(p.getGamesWon()+1);
     }
 
-    public Player getRoot() {
-        return root;
+    public ArrayList<Player> getPlayers() {
+        return players;
     }
 
-    public void setRoot(Player root) {
-        this.root = root;
-    }
-
-    public ArrayList<Pair<String, Integer>> updateLeaderboard(){
-        players.clear();
-        return printScore(root, 1);
+    public void setPlayers(ArrayList<Player> players) {
+        this.players = players;
     }
 
     public static Scoreboard getInstance() {

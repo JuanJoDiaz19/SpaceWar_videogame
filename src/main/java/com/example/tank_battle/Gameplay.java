@@ -318,15 +318,33 @@ public class Gameplay implements Initializable {
                     }
                 }
         ).start();
+
         new Thread(
                 () -> {
                     while (isRunning) {
-                        Platform.runLater(() -> {
-                            bulletsAI(false);
+                        Platform.runLater(() ->{
                         });
                         //Sleep (Mimiendo)
                         try {
-                            Thread.sleep(2000);
+                            Thread.sleep(5000);
+                            bulletsAI(false);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                }
+        ).start();
+        new Thread(
+                () -> {
+                    while (isRunning) {
+                        Platform.runLater(() ->{
+                        });
+                        //Sleep (Mimiendo)
+                        try {
+                            Thread.sleep(3500);
+                            if(player3.numBullets==0){
+                                player3.numBullets=5;
+                            }
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);
                         }
@@ -336,8 +354,6 @@ public class Gameplay implements Initializable {
     }
 
     private void explosionAnimation() {
-        //System.out.println(isPlayer1Exploded);
-        //System.out.println(animationExplosionPlayer1);
         if (isPlayer1Exploded && animationExplosionPlayer1 > 0){
             if(animationExplosionPlayer1 > 8){
                 gc.drawImage(exp1, player1.pos.x-40, player1.pos.y-40, 80, 80);
@@ -571,7 +587,6 @@ public class Gameplay implements Initializable {
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
-        //System.out.println(keyEvent.getCode());
         if (keyEvent.getCode() == KeyCode.W) {
             Wpressed = true;
         }
@@ -800,7 +815,7 @@ public class Gameplay implements Initializable {
     private Font pixeman21 = Font.loadFont(is, 21.0);
 
     public void bulletsAI(boolean isNear){
-        if(player3.isColliding || isNear){
+        if((player3.isColliding || isNear) && player3.numBullets>0&& !isPlayer3Exploded){
             Bullet bullet = new Bullet(canvas, gc, new Vector(player3.pos.x, player3.pos.y ), new Vector(2.5*player3.direction.x, 2.5*player3.direction.y ), 1);
             bulletsPlayer3.add(bullet);
             player3.numBullets--;
@@ -865,11 +880,9 @@ public class Gameplay implements Initializable {
                 player3.isColliding=true;
             }
         }
-        if (!player3.isColliding&&distancep1>60&&distancep2>60) player3.moveForward();
-        System.out.println(distancep2);
-        if(distancep1<100||distancep2<100) {
-            System.out.println("SAPOHPTAA");
-            bulletsAI(true);}
+        if (!player3.isColliding&&distancep1>60&&distancep2>60&&(!isPlayer1Exploded||!isPlayer2Exploded)) player3.moveForward();
+        if (isPlayer1Exploded&&isPlayer2Exploded) player3.changeAngle(5);
+        if(distancep1<100||distancep2<100) bulletsAI(true);
     }
 
     private void setFonts(){

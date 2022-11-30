@@ -299,6 +299,7 @@ public class Gameplay implements Initializable {
                                 bulletsPlayer3.get(i).draw();
                             }
 
+
                             controlAI();
                             //Explosion animation
                             explosionAnimation();
@@ -371,6 +372,7 @@ public class Gameplay implements Initializable {
 
     private void detectionBulletCollisionWithPlayer() {
         for (Bullet b : bulletsPlayer1) {
+            //Cuando choca con player 2
             double c1 = b.pos.x - player2.pos.x;
             double c2 = b.pos.y - player2.pos.y;
             double distance = Math.sqrt(Math.pow(c1, 2) + Math.pow(c2, 2));
@@ -396,13 +398,40 @@ public class Gameplay implements Initializable {
                             break;
                 }
             }
+            //Cuando choca con Player 3
+            double p3c1 = b.pos.x - player3.pos.x;
+            double p3c2 = b.pos.y - player3.pos.y;
+            double p3distance = Math.sqrt(Math.pow(p3c1, 2) + Math.pow(p3c2, 2));
+            if(p3distance < 20){
+                bulletsPlayer1.remove(b);
+                player3.numLifes--;
+                if (player3.numLifes == 0)isPlayer3Exploded = true;
+                switch (player3.numLifes){
+                    case 4:
+                        h5cpu.setImage(withoutHealth);
+                        break;
+                    case 3:
+                        h4cpu.setImage(withoutHealth);
+                        break;
+                    case 2:
+                        h3cpu.setImage(withoutHealth);
+                        break;
+                    case 1:
+                        h2cpu.setImage(withoutHealth);
+                        break;
+                    case 0:
+                        h1cpu.setImage(withoutHealth);
+                        break;
+                }
+            }
         }
 
         for (Bullet b : bulletsPlayer2) {
-            double c1 = b.pos.x - player1.pos.x;
-            double c2 = b.pos.y - player1.pos.y;
-            double distance = Math.sqrt(Math.pow(c1, 2) + Math.pow(c2, 2));
-            if(distance < 20){
+            //Distancia con player 1
+            double p1c1 = b.pos.x - player1.pos.x;
+            double p1c2 = b.pos.y - player1.pos.y;
+            double p1distance = Math.sqrt(Math.pow(p1c1, 2) + Math.pow(p1c2, 2));
+            if(p1distance < 20){
                 bulletsPlayer2.remove(b);
                 player1.numLifes--;
                 if (player1.numLifes == 0 )isPlayer1Exploded = true;
@@ -425,15 +454,71 @@ public class Gameplay implements Initializable {
                 }
                 return;
             }
+            //Distancia con player 3
+            double p3c1 = b.pos.x - player3.pos.x;
+            double p3c2 = b.pos.y - player3.pos.y;
+            double p3distance = Math.sqrt(Math.pow(p3c1, 2) + Math.pow(p3c2, 2));
+            if(p3distance < 20){
+                bulletsPlayer2.remove(b);
+                player3.numLifes--;
+                if (player3.numLifes == 0 )isPlayer3Exploded = true;
+                switch (player3.numLifes){
+                    case 4:
+                        h5cpu.setImage(withoutHealth);
+                        break;
+                    case 3:
+                        h4cpu.setImage(withoutHealth);
+                        break;
+                    case 2:
+                        h3cpu.setImage(withoutHealth);
+                        break;
+                    case 1:
+                        h2cpu.setImage(withoutHealth);
+                        break;
+                    case 0:
+                        h1cpu.setImage(withoutHealth);
+                        break;
+                }
+                return;
+            }
         }
 
         for (Bullet b : bulletsPlayer3) {
-            double c1 = b.pos.x - player3.pos.x;
-            double c2 = b.pos.y - player3.pos.y;
-            double distance = Math.sqrt(Math.pow(c1, 2) + Math.pow(c2, 2));
-            if(distance < 20){
-                bulletsPlayer1.remove(b);
-                player3.numLifes--;
+            //Choque con player 1
+            double p1c1 = b.pos.x - player1.pos.x;
+            double p1c2 = b.pos.y - player1.pos.y;
+            double p1distance = Math.sqrt(Math.pow(p1c1, 2) + Math.pow(p1c2, 2));
+            if(p1distance < 20){
+                bulletsPlayer3.remove(b);
+                player1.numLifes--;
+                if (player1.numLifes == 0)isPlayer1Exploded = true;
+                switch (player1.numLifes){
+                    case 4:
+                        h5p1.setImage(withoutHealth);
+                        break;
+                    case 3:
+                        h4p1.setImage(withoutHealth);
+                        break;
+                    case 2:
+                        h3p1.setImage(withoutHealth);
+                        break;
+                    case 1:
+                        h2p1.setImage(withoutHealth);
+                        break;
+                    case 0:
+                        h1p1.setImage(withoutHealth);
+                        break;
+                }
+            }
+        }
+        for (Bullet b : bulletsPlayer3) {
+            //Choque con player 2
+            double p2c1 = b.pos.x - player2.pos.x;
+            double p2c2 = b.pos.y - player2.pos.y;
+            double p2distance = Math.sqrt(Math.pow(p2c1, 2) + Math.pow(p2c2, 2));
+            if(p2distance < 20){
+                bulletsPlayer3.remove(b);
+                player2.numLifes--;
                 if (player2.numLifes == 0)isPlayer2Exploded = true;
                 switch (player2.numLifes){
                     case 4:
@@ -683,6 +768,7 @@ public class Gameplay implements Initializable {
         for (Obstacle o: obstacles) {
             for (Bullet b: bulletsPlayer1) {
                 if (b.getHitBox().intersects( o.getY(), o.getX(),50, 50)){
+
                     bulletsPlayer1.remove(b);
                     obstacles.remove(o);
                 }
@@ -707,6 +793,7 @@ public class Gameplay implements Initializable {
         }
 
     }
+
 
 
    InputStream is = getClass().getResourceAsStream("/fonts/Pixeboy.ttf");
@@ -737,21 +824,35 @@ public class Gameplay implements Initializable {
         }
     }
     public void controlAI(){
-        double dxp1=player1.pos.x-player3.pos.x;
-        double dyp1=player1.pos.y-player3.pos.y;
-        double distancep1 = Math.sqrt(Math.pow(dxp1, 2) + Math.pow(dyp1, 2));
-        double dxp2=player2.pos.x-player3.pos.x;
-        double dyp2=player2.pos.y-player3.pos.y;
-        double distancep2 = Math.sqrt(Math.pow(dxp2, 2) + Math.pow(dyp2, 2));
+        double distancep1;
+        if (!isPlayer1Exploded){
+            double dxp1=player1.pos.x-player3.pos.x;
+            double dyp1=player1.pos.y-player3.pos.y;
+            distancep1 = Math.sqrt(Math.pow(dxp1, 2) + Math.pow(dyp1, 2));
+        } else {
+            distancep1 = Double.POSITIVE_INFINITY;
+        }
+        double distancep2;
+        if(!isPlayer2Exploded){
+            double dxp2=player2.pos.x-player3.pos.x;
+            double dyp2=player2.pos.y-player3.pos.y;
+            distancep2 = Math.sqrt(Math.pow(dxp2, 2) + Math.pow(dyp2, 2));
+        } else {
+            distancep2 = Double.POSITIVE_INFINITY;
+        }
         double componentX,componentY;
         double rule =0;
-        if(distancep1<distancep2){
+        //System.out.println(isPlayer1Exploded);
+        //System.out.println(isPlayer2Exploded);
+        if(distancep1<=distancep2){
+            //System.out.println("POPo");
             componentX = (player1.pos.x-player3.pos.x);
             componentY = (player1.pos.y-player3.pos.y);
             rule = Math.sqrt(Math.pow(componentX, 2) + Math.pow(componentY, 2));
             player3.direction.x=componentX/rule;
             player3.direction.y=componentY/rule;
-        }else {
+        }else if (distancep1 >= distancep2){
+            //System.out.println("CLAUDIAAAAAA");
             componentX = (player2.pos.x-player3.pos.x);
             componentY = (player2.pos.y-player3.pos.y);
             rule = Math.sqrt(Math.pow(componentX, 2) + Math.pow(componentY, 2));

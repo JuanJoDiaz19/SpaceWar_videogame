@@ -25,10 +25,11 @@ public class WinningController implements Initializable {
 
     @FXML
     private Button playBTN;
+
     InputStream is1 = getClass().getResourceAsStream("/fonts/Pixeboy.ttf");
     InputStream is2 = getClass().getResourceAsStream("/fonts/Pixeboy.ttf");
     private Font pixeman1 = Font.loadFont(is1, 47.0);
-    private Font pixeman2 = Font.loadFont(is2, 37.0);
+    private Font pixeman2 = Font.loadFont(is2, 45.0);
 
     @FXML
     void cancelA(ActionEvent event) {

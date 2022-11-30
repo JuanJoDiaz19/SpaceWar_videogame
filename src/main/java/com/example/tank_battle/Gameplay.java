@@ -891,14 +891,16 @@ public class Gameplay implements Initializable {
         //System.out.println(isPlayer1Exploded);
         //System.out.println(isPlayer2Exploded);
         if(distancep1<=distancep2){
-            //System.out.println("POPo");
+
+
             componentX = (player1.pos.x-player3.pos.x);
             componentY = (player1.pos.y-player3.pos.y);
             rule = Math.sqrt(Math.pow(componentX, 2) + Math.pow(componentY, 2));
             player3.direction.x=componentX/rule;
             player3.direction.y=componentY/rule;
+
+
         }else if (distancep1 >= distancep2){
-            //System.out.println("CLAUDIAAAAAA");
             componentX = (player2.pos.x-player3.pos.x);
             componentY = (player2.pos.y-player3.pos.y);
             rule = Math.sqrt(Math.pow(componentX, 2) + Math.pow(componentY, 2));

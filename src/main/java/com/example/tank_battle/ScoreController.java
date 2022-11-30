@@ -155,6 +155,7 @@ public class ScoreController implements Initializable {
         drawBackground();
         setFonts();
         updateSb();
+        Singleton.getInstance().stopSound();
         Singleton.getInstance().setMusicPath("src/main/resources/com/example/tank_battle/IntroSong.wav");
         Singleton.getInstance().playSound();
 

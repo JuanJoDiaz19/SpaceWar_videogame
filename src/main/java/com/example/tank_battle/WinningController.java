@@ -36,6 +36,8 @@ public class WinningController implements Initializable {
         GameMain.showWindow("scores.fxml");
         GameMain.hideWindow("winning.fxml");
         GameMain.hideWindow("gameCanvas.fxml");
+        Singleton.getInstance().stopSound();
+
     }
 
     @FXML

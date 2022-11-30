@@ -37,6 +37,7 @@ public class HomeMenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Singleton.getInstance().stopSound();
         Singleton.getInstance().setMusicPath("src/main/resources/com/example/tank_battle/IntroSong.wav");
         Singleton.getInstance().playSound();
     }

@@ -46,6 +46,7 @@ public class Singleton {
         this.player3=new Player(3);
         this.player3.isEnemy=true;
 
+
         //String uri = GameMain.class.getResource("explosion.wav").getPath();
         musicPath = new File("src/main/resources/com/example/tank_battle/explosion.wav");
 
@@ -84,7 +85,10 @@ public class Singleton {
         }
     }
     public void stopSound(){
-        clip.stop();
+        if(clip!=null){
+            clip.stop();
+        }
+
     }
 
     public Player getPlayer1(){

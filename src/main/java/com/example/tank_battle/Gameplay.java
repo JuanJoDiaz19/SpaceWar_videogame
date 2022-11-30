@@ -508,6 +508,7 @@ public class Gameplay implements Initializable {
             if(p3distance < 20){
                 bulletsPlayer2.remove(b);
                 player3.numLifes--;
+                Singleton.getInstance().playSound("explosion.wav");
                 if (player3.numLifes == 0 )isPlayer3Exploded = true;
                 switch (player3.numLifes){
                     case 4:
@@ -538,6 +539,7 @@ public class Gameplay implements Initializable {
             if(p1distance < 20){
                 bulletsPlayer3.remove(b);
                 player1.numLifes--;
+                Singleton.getInstance().playSound("explosion.wav");
                 if (player1.numLifes == 0)isPlayer1Exploded = true;
                 switch (player1.numLifes){
                     case 4:
@@ -563,6 +565,7 @@ public class Gameplay implements Initializable {
             double p2c1 = b.pos.x - player2.pos.x;
             double p2c2 = b.pos.y - player2.pos.y;
             double p2distance = Math.sqrt(Math.pow(p2c1, 2) + Math.pow(p2c2, 2));
+            Singleton.getInstance().playSound("explosion.wav");
             if(p2distance < 20){
                 bulletsPlayer3.remove(b);
                 player2.numLifes--;
@@ -814,9 +817,9 @@ public class Gameplay implements Initializable {
         for (Obstacle o: obstacles) {
             for (Bullet b: bulletsPlayer1) {
                 if (b.getHitBox().intersects( o.getY(), o.getX(),50, 50)){
-
                     bulletsPlayer1.remove(b);
                     obstacles.remove(o);
+                    Singleton.getInstance().playSound("explosion.wav");
                 }
             }
         }
@@ -826,6 +829,7 @@ public class Gameplay implements Initializable {
                 if (b.getHitBox().intersects( o.getY(), o.getX(),50, 50)){
                     bulletsPlayer2.remove(b);
                     obstacles.remove(o);
+                    Singleton.getInstance().playSound("explosion.wav");
                 }
             }
         }
@@ -834,6 +838,7 @@ public class Gameplay implements Initializable {
                 if (b.getHitBox().intersects( o.getY(), o.getX(),50, 50)){
                     bulletsPlayer3.remove(b);
                     obstacles.remove(o);
+                    Singleton.getInstance().playSound("explosion.wav");
                 }
             }
         }

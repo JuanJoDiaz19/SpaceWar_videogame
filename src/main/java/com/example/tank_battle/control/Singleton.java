@@ -1,5 +1,10 @@
 package com.example.tank_battle.control;
+import com.example.tank_battle.GameMain;
 import com.example.tank_battle.model.Player;
+
+import javax.sound.sampled.*;
+import java.io.File;
+import java.io.IOException;
 
 public class Singleton {
     private static Singleton instance;
@@ -27,6 +32,29 @@ public class Singleton {
         this.player1.setName(name1);
         this.player2.setName(name2);
         this.player3.setName(name3);
+    }
+
+    public void playSound(String musicPathh){
+        String uri = GameMain.class.getResource(musicPathh).getPath();
+        File musicPath = new File("src/main/resources/com/example/tank_battle/explosion.wav");
+        if(musicPath.exists()){
+            try {
+                AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioInput);
+                clip.start();
+                clip.loop(1);
+
+            } catch (UnsupportedAudioFileException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (LineUnavailableException e) {
+                throw new RuntimeException(e);
+            }
+        }else {
+            System.out.println("No existe");
+        }
     }
 
     public Player getPlayer1(){

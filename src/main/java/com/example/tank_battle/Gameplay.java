@@ -299,6 +299,10 @@ public class Gameplay implements Initializable {
                                 bulletsPlayer3.get(i).draw();
                             }
 
+                            if(detectEndGame()){
+                                isRunning = false;
+                            }
+
 
                             controlAI();
                             //Explosion animation
@@ -351,6 +355,20 @@ public class Gameplay implements Initializable {
                     }
                 }
         ).start();
+    }
+
+    private boolean detectEndGame() {
+        if (animationExplosionPlayer1 <1 && animationExplosionPlayer2 < 1) {
+            System.out.println("The winner is Player 3");
+            return true;
+        } else if (animationExplosionPlayer2 <1 && animationExplosionPlayer3 < 1){
+            System.out.println("The winner is Player 1");
+            return true;
+        } else if (animationExplosionPlayer3 < 1 && animationExplosionPlayer1 <1) {
+            System.out.println("The winner is Player 2");
+            return true;
+        }
+        return false;
     }
 
     private void explosionAnimation() {

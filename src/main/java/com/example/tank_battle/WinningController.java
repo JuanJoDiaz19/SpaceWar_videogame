@@ -22,7 +22,7 @@ public class WinningController implements Initializable {
 
     @FXML
     private Label labelResult1;
-
+//carenalga
     @FXML
     private Button playBTN;
 

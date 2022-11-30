@@ -34,6 +34,7 @@ public class NamesController {
     @FXML
     void cancelA(ActionEvent event) {
         Stage currentStage = (Stage) cancelBTN.getScene().getWindow();
+        GameMain.hideWindow("winning.fxml");
         currentStage.hide();
     }
 

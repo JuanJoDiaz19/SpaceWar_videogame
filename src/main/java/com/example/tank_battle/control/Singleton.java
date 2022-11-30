@@ -7,6 +7,7 @@ public class Singleton {
     public Player player1;
     public Player player2;
     public Player player3;
+    public String winningTeam;
 
     private Singleton(){
         this.player1=new Player(1);

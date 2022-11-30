@@ -18,6 +18,7 @@ public class GameMain extends Application {
     private static Stage homeScreen;
     private static Stage gamePlay;
     private static Stage scores;
+    private static Stage winning;
 
     @Override
     public void start(Stage stage)  {
@@ -31,7 +32,9 @@ public class GameMain extends Application {
         } else if (fxml.equals("addNames.fxml")) {
             addNames.hide();
         }else if (fxml.equals("scores.fxml")) {
-            addNames.hide();
+            scores.hide();
+        }else if (fxml.equals("winning.fxml")) {
+            winning.hide();
         }
     }
     public static void showWindow(String fxml){
@@ -64,13 +67,23 @@ public class GameMain extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(GameMain.class.getResource(fxml));
             Parent node = fxmlLoader.load();
             Scene scene = new Scene(node);
-            addNames = new Stage();
-            addNames.initStyle(StageStyle.TRANSPARENT);
-            scene.setFill(Color.TRANSPARENT);
-            addNames.setX(600);
-            addNames.setY(250);
-            addNames.setScene(scene);
-            addNames.show();
+            if(fxml.equals("addNames.fxml")) {
+                addNames = new Stage();
+                addNames.initStyle(StageStyle.TRANSPARENT);
+                scene.setFill(Color.TRANSPARENT);
+                addNames.setX(600);
+                addNames.setY(250);
+                addNames.setScene(scene);
+                addNames.show();
+            } else if (fxml.equals("winning.fxml")) {
+                winning = new Stage();
+                winning.initStyle(StageStyle.TRANSPARENT);
+                scene.setFill(Color.TRANSPARENT);
+                winning.setX(600);
+                winning.setY(250);
+                winning.setScene(scene);
+                winning.show();
+            }
         }catch (IOException ex){
             ex.printStackTrace();
         }

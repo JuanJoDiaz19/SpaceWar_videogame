@@ -303,6 +303,9 @@ public class Gameplay implements Initializable {
                             if(detectEndGame()){
                                 isRunning = false;
                             }
+                            if(!isRunning){
+                                ending();
+                            }
 
 
                             controlAI();
@@ -331,7 +334,7 @@ public class Gameplay implements Initializable {
                         });
                         //Sleep (Mimiendo)
                         try {
-                            Thread.sleep(5000);
+                            Thread.sleep(3500);
                             bulletsAI(false);
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);
@@ -357,16 +360,27 @@ public class Gameplay implements Initializable {
                 }
         ).start();
     }
+    private void ending() {
+        String out="";
+        if (animationExplosionPlayer1 <1 && animationExplosionPlayer2 < 1) {
+            out=Singleton.getInstance().getPlayer3().getName();
+        } else if (animationExplosionPlayer2 <1 && animationExplosionPlayer3 < 1){
+            out=Singleton.getInstance().getPlayer1().getName();
+        } else if (animationExplosionPlayer3 < 1 && animationExplosionPlayer1 <1) {
+            out=Singleton.getInstance().getPlayer2().getName();
 
+        }
+        if(!out.equals("")){
+            Singleton.getInstance().winningTeam=out;
+            GameMain.showTransparentWindow("winning.fxml");
+        }
+    }
     private boolean detectEndGame() {
         if (animationExplosionPlayer1 <1 && animationExplosionPlayer2 < 1) {
-            System.out.println("The winner is Player 3");
             return true;
         } else if (animationExplosionPlayer2 <1 && animationExplosionPlayer3 < 1){
-            System.out.println("The winner is Player 1");
             return true;
         } else if (animationExplosionPlayer3 < 1 && animationExplosionPlayer1 <1) {
-            System.out.println("The winner is Player 2");
             return true;
         }
         return false;

@@ -43,7 +43,6 @@ public class Scoreboard {
     }
 
     public ArrayList<Player> getPlayers() {
-        loadInformation();
         return players;
     }
 
@@ -65,7 +64,7 @@ public class Scoreboard {
             String line;
             while ((line = reader.readLine()) != null) {
                 System.out.println(line);
-                String parts[] = line.split(" ");
+                String parts[] = line.split(";");
                 Player p = new Player(parts[0]);
                 p.setGamesWon(p.getGamesWon() + Integer.parseInt( parts[1]) -1);
                 newPlayers.add(p);
@@ -82,7 +81,7 @@ public class Scoreboard {
     public void saveInformation(){
         String text = "";
         for (Player p : players) {
-            text+=(p.getName() + p.getGamesWon() + "\n");
+            text+=(p.getName() + ";"+ p.getGamesWon() + "\n");
         }
         File file = new File("leaderBoard.txt");
         try {

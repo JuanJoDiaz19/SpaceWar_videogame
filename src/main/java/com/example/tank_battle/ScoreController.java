@@ -150,7 +150,6 @@ public class ScoreController implements Initializable {
 
         gc = canvas.getGraphicsContext2D();
         canvas.setFocusTraversable(true);
-
         drawBackground();
         setFonts();
         updateSb();

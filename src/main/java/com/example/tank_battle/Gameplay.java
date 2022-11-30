@@ -398,12 +398,12 @@ public class Gameplay implements Initializable {
             out=Singleton.getInstance().getPlayer2().getName();
 
         }
+        Scoreboard.getInstance().loadInformation();
         Scoreboard.getInstance().insert(new Player(out));
         if(!out.equals("")){
             Singleton.getInstance().winningTeam=out;
             GameMain.hideWindow("winning.fxml");
             GameMain.showTransparentWindow("winning.fxml");
-
         }
     }
     private boolean detectEndGame() {

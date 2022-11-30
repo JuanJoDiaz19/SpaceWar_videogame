@@ -177,7 +177,8 @@ public class Gameplay implements Initializable {
     private  int animationExplosionPlayer2;
 
     private int animationExplosionPlayer3;
-
+    private double distanceP3P1;
+    private double distanceP3P2;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -331,8 +332,8 @@ public class Gameplay implements Initializable {
                         });
                         //Sleep (Mimiendo)
                         try {
-                            Thread.sleep(3500);
-                            bulletsAI(false);
+                            Thread.sleep(1000);
+                            bulletsAI();
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);
                         }
@@ -371,6 +372,7 @@ public class Gameplay implements Initializable {
         if(!out.equals("")){
             Singleton.getInstance().winningTeam=out;
             GameMain.showTransparentWindow("winning.fxml");
+
         }
     }
     private boolean detectEndGame() {
@@ -539,7 +541,7 @@ public class Gameplay implements Initializable {
             if(p1distance < 20){
                 bulletsPlayer3.remove(b);
                 player1.numLifes--;
-                Singleton.getInstance().playSound("explosion.wav");
+                //Singleton.getInstance().playSound("explosion.wav");
                 if (player1.numLifes == 0)isPlayer1Exploded = true;
                 switch (player1.numLifes){
                     case 4:
@@ -565,8 +567,8 @@ public class Gameplay implements Initializable {
             double p2c1 = b.pos.x - player2.pos.x;
             double p2c2 = b.pos.y - player2.pos.y;
             double p2distance = Math.sqrt(Math.pow(p2c1, 2) + Math.pow(p2c2, 2));
-            Singleton.getInstance().playSound("explosion.wav");
-            if(p2distance < 20){
+            //Singleton.getInstance().playSound("explosion.wav");
+            if( p2distance < 20){
                 bulletsPlayer3.remove(b);
                 player2.numLifes--;
                 if (player2.numLifes == 0)isPlayer2Exploded = true;
@@ -838,7 +840,7 @@ public class Gameplay implements Initializable {
                 if (b.getHitBox().intersects( o.getY(), o.getX(),50, 50)){
                     bulletsPlayer3.remove(b);
                     obstacles.remove(o);
-                    Singleton.getInstance().playSound("explosion.wav");
+                    //Singleton.getInstance().playSound("explosion.wav");
                 }
             }
         }
@@ -850,9 +852,11 @@ public class Gameplay implements Initializable {
    InputStream is = getClass().getResourceAsStream("/fonts/Pixeboy.ttf");
     private Font pixeman21 = Font.loadFont(is, 21.0);
 
-    public void bulletsAI(boolean isNear){
+    public void bulletsAI(){
+        boolean isNear = distanceP3P1 < 100 || distanceP3P2 < 100;
         if((player3.isColliding || isNear) && player3.numBullets>0&& !isPlayer3Exploded){
-            Bullet bullet = new Bullet(canvas, gc, new Vector(player3.pos.x, player3.pos.y ), new Vector(2.5*player3.direction.x, 2.5*player3.direction.y ), 1);
+            System.out.println("Entro a bullets ia");
+            Bullet bullet = new Bullet(canvas, gc, new Vector(player3.pos.x, player3.pos.y ), new Vector(2.5*player3.direction.x, 2.5*player3.direction.y ), 3);
             bulletsPlayer3.add(bullet);
             player3.numBullets--;
             switch (player3.numBullets){
@@ -920,7 +924,9 @@ public class Gameplay implements Initializable {
         }
         if (!player3.isColliding&&distancep1>60&&distancep2>60&&(!isPlayer1Exploded||!isPlayer2Exploded)) player3.moveForward();
         if (isPlayer1Exploded&&isPlayer2Exploded) player3.changeAngle(5);
-        if(distancep1<100||distancep2<100) bulletsAI(true);
+        distanceP3P1 = distancep1;
+        distanceP3P2 = distancep2;
+        //if(distancep1<100||distancep2<100) bulletsAI();
     }
 
     private void setFonts(){

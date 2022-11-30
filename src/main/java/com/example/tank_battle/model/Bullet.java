@@ -25,8 +25,10 @@ public class Bullet {
         String uri;
         if (type == 1) {
             uri =  "file:"+ GameMain.class.getResource("redBullet.png").getPath();
-        } else {
+        } else if(type == 2) {
             uri =  "file:"+ GameMain.class.getResource("blueBullet.png").getPath();
+        } else {
+            uri =  "file:"+ GameMain.class.getResource("yellowBullet.png").getPath();
         }
         bulletImage = new Image(uri);
     }

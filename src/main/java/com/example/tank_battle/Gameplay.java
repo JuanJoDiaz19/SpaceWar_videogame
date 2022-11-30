@@ -184,6 +184,7 @@ public class Gameplay implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        setFonts();
 
         labelP1.setText(Singleton.getInstance().player1.getName());
         labelP2.setText(Singleton.getInstance().player2.getName());

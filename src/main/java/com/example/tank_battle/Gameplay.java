@@ -143,6 +143,7 @@ public class Gameplay implements Initializable {
     private ArrayList<Pair<Integer,Integer>> walletsp;
     private ArrayList<Bullet> bulletsPlayer1;
     private ArrayList<Bullet> bulletsPlayer2;
+    private ArrayList<Bullet> bulletsPlayer3;
 
     //sounds
     private Sound sound1;
@@ -201,8 +202,8 @@ public class Gameplay implements Initializable {
         //Loading the images of the explotion
 
         exp1 = new Image("file:"+ GameMain.class.getResource("exp1.png").getPath());
-        exp1 = new Image("file:"+ GameMain.class.getResource("exp2.png").getPath());
-        exp1 = new Image("file:"+ GameMain.class.getResource("exp2.png").getPath());
+        exp2 = new Image("file:"+ GameMain.class.getResource("exp2.png").getPath());
+        exp3 = new Image("file:"+ GameMain.class.getResource("exp3.png").getPath());
 
         gc = canvas.getGraphicsContext2D();
         canvas.setFocusTraversable(true);
@@ -217,6 +218,7 @@ public class Gameplay implements Initializable {
 
         bulletsPlayer1 = new ArrayList<>();
         bulletsPlayer2 = new ArrayList<>();
+        bulletsPlayer3 = new ArrayList<>();
         obstacles = new ArrayList<>();
         walletsp= new ArrayList<>();
 
@@ -290,11 +292,13 @@ public class Gameplay implements Initializable {
                             for (int i = 0; i < bulletsPlayer2.size() ; i++) {
                                 bulletsPlayer2.get(i).draw();
                             }
+                            for (int i = 0; i < bulletsPlayer3.size() ; i++) {
+                                bulletsPlayer3.get(i).draw();
+                            }
 
 
                             //Explosion animation
                             explosionAnimation();
-
                             //Colisiones
                             detectionBulletCollisionWithPlayer();
                             doKeyboardActions();
@@ -334,6 +338,16 @@ public class Gameplay implements Initializable {
                 gc.drawImage(exp3, player2.pos.x-40, player2.pos.y-40, 80, 80);
             }
             animationExplosionPlayer2--;
+        }
+        if (isPlayer3Exploded && animationExplosionPlayer3 > 0){
+            if(animationExplosionPlayer3 > 8){
+                gc.drawImage(exp1, player3.pos.x-40, player3.pos.y-40, 80, 80);
+            } else if (animationExplosionPlayer1 > 4) {
+                gc.drawImage(exp2, player3.pos.x-40, player3.pos.y-40, 80, 80);
+            } else {
+                gc.drawImage(exp3, player3.pos.x-40, player3.pos.y-40, 80, 80);
+            }
+            animationExplosionPlayer3--;
         }
     }
 
@@ -392,6 +406,34 @@ public class Gameplay implements Initializable {
                         break;
                 }
                 return;
+            }
+        }
+
+        for (Bullet b : bulletsPlayer3) {
+            double c1 = b.pos.x - player3.pos.x;
+            double c2 = b.pos.y - player3.pos.y;
+            double distance = Math.sqrt(Math.pow(c1, 2) + Math.pow(c2, 2));
+            if(distance < 20){
+                bulletsPlayer1.remove(b);
+                player3.numLifes--;
+                if (player2.numLifes == 0)isPlayer2Exploded = true;
+                switch (player2.numLifes){
+                    case 4:
+                        h5p2.setImage(withoutHealth);
+                        break;
+                    case 3:
+                        h4p2.setImage(withoutHealth);
+                        break;
+                    case 2:
+                        h3p2.setImage(withoutHealth);
+                        break;
+                    case 1:
+                        h2p2.setImage(withoutHealth);
+                        break;
+                    case 0:
+                        h1p2.setImage(withoutHealth);
+                        break;
+                }
             }
         }
     }

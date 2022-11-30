@@ -21,6 +21,7 @@ public class Player {
     public Vector direction;
     public int numBullets;
     public int numLifes;
+    public int type;
 
     public Player(int type ){
         if(type == 1){
@@ -33,6 +34,7 @@ public class Player {
             pos = new Vector(500, 500);
             direction = new Vector(0,1);
         }
+        this.type = type;
         names = new ArrayList<>();
         numBullets = 5;
         numLifes = 5;
@@ -55,7 +57,12 @@ public class Player {
         gc.save();
         gc.translate(pos.x, pos.y);
         gc.rotate(90+direction.getAngle());
-        gc.drawImage(tank, -20,-20, 40,40);
+        if (type != 3){
+            gc.drawImage(tank, -20,-20, 40,40);
+        } else {
+            gc.drawImage(tank, -30,-30, 50,50);
+        }
+
         gc.restore();
     }
 

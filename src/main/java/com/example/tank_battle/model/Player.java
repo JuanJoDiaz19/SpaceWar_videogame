@@ -11,40 +11,28 @@ public class Player {
     private String name;
     private ArrayList<String> names;
     private int wonMatches;
-
     private Player left;
     private Player right;
-
     private Canvas canvas;
 
-    public GraphicsContext getGc() {
-        return gc;
-    }
-
-    public void setGc(GraphicsContext gc) {
-        this.gc = gc;
-    }
-
     private GraphicsContext gc;
-
-    public Image getTank() {
-        return tank;
-    }
-
-    public void setTank(String path) {
-        String uri = "file:"+ GameMain.class.getResource(path).getPath();
-        this.tank = new Image(uri);
-    }
-
     private Image tank;
     public Vector pos;
     public Vector direction;
     public int numBullets;
     public int numLifes;
 
-    public Player(){
-        pos = new Vector(250, 250);
-        direction = new Vector(1,1);
+    public Player(int type ){
+        if(type == 1){
+            pos = new Vector(250, 250);
+            direction = new Vector(1,0);
+        } else if (type == 2){
+            pos = new Vector(750, 250);
+            direction = new Vector(-1,0);
+        } else {
+            pos = new Vector(500, 500);
+            direction = new Vector(0,1);
+        }
         names = new ArrayList<>();
         numBullets = 5;
         numLifes = 5;
@@ -140,5 +128,18 @@ public class Player {
 
     public ArrayList<String> getNames(){
         return new ArrayList<>(names);
+    }
+    public GraphicsContext getGc() {
+        return gc;
+    }
+    public void setGc(GraphicsContext gc) {
+        this.gc = gc;
+    }
+    public void setTank(String path) {
+        String uri = "file:"+ GameMain.class.getResource(path).getPath();
+        this.tank = new Image(uri);
+    }
+    public Image getTank() {
+        return tank;
     }
 }

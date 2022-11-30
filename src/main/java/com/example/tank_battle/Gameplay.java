@@ -28,27 +28,6 @@ public class Gameplay implements Initializable {
     private HBox hBox;
     @FXML
     private Canvas canvas;
-    private GraphicsContext gc;
-
-    private boolean isRunning = true;
-
-    //Players in the game
-    private Player player1;
-    private Player player2;
-
-    //Bullets in the game
-    private ArrayList<Pair<Integer,Integer>> walletsp;
-    private ArrayList<Bullet> bulletsPlayer1;
-    private ArrayList<Bullet> bulletsPlayer2;
-
-    private int diedPlayer1;
-
-    private int diedPlayer2;
-
-    //sounds
-    private Sound sound1;
-
-
     private Image backgroud;
     private Obstacle[][] obstaclesMap;
     private ArrayList<Obstacle> obstacles;
@@ -150,6 +129,23 @@ public class Gameplay implements Initializable {
 
     @FXML
     private Label labelP2;
+
+    private GraphicsContext gc;
+
+    private boolean isRunning = true;
+
+    //Players in the game
+    private Player player1;
+    private Player player2;
+    private Player player3;
+
+    //Bullets in the game
+    private ArrayList<Pair<Integer,Integer>> walletsp;
+    private ArrayList<Bullet> bulletsPlayer1;
+    private ArrayList<Bullet> bulletsPlayer2;
+
+    //sounds
+    private Sound sound1;
     
     //Estados de las teclas para el jugador 1
     private boolean Wpressed = false;
@@ -175,8 +171,12 @@ public class Gameplay implements Initializable {
     
     private boolean isPlayer1Exploded;
     private boolean isPlayer2Exploded;
+    private boolean isPlayer3Exploded;
     private int animationExplosionPlayer1;
     private  int animationExplosionPlayer2;
+
+    private int animationExplosionPlayer3;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -187,8 +187,10 @@ public class Gameplay implements Initializable {
 
         isPlayer1Exploded = false;
         isPlayer2Exploded = false;
+        isPlayer3Exploded = false;
         animationExplosionPlayer1 = 12;
         animationExplosionPlayer2 = 12;
+        animationExplosionPlayer3 = 12;
 
         //Loading the images of the bullets
         withRedBullet = new Image("file:"+ GameMain.class.getResource("redBullet.png").getPath());
@@ -217,7 +219,6 @@ public class Gameplay implements Initializable {
         bulletsPlayer2 = new ArrayList<>();
         obstacles = new ArrayList<>();
         walletsp= new ArrayList<>();
-        diedPlayer1=0;
 
         //Initializing the matrix
         Integer obstaclesInMap[][] = new Integer[][]{
@@ -255,8 +256,11 @@ public class Gameplay implements Initializable {
         Singleton.getInstance().getPlayer1().setTank("tank1.png");
         Singleton.getInstance().getPlayer2().setGc(canvas.getGraphicsContext2D());
         Singleton.getInstance().getPlayer2().setTank("tank2.png");
+        Singleton.getInstance().getPlayer3().setGc(canvas.getGraphicsContext2D());
+        Singleton.getInstance().getPlayer3().setTank("tank3.png");
         player1=Singleton.getInstance().getPlayer1();
         player2=Singleton.getInstance().getPlayer2();
+        player3 = Singleton.getInstance().getPlayer3();
         draw();
     }
 
@@ -274,6 +278,9 @@ public class Gameplay implements Initializable {
                             if(animationExplosionPlayer2 > 11 ){
                                 player2.draw();
                             }
+                            if(animationExplosionPlayer3 > 11 ){
+                                player3.draw();
+                            }
                             for (Obstacle ob : obstacles) {
                                 ob.draw();
                             }
@@ -283,6 +290,7 @@ public class Gameplay implements Initializable {
                             for (int i = 0; i < bulletsPlayer2.size() ; i++) {
                                 bulletsPlayer2.get(i).draw();
                             }
+
 
                             //Explosion animation
                             explosionAnimation();

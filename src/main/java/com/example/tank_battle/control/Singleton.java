@@ -9,9 +9,9 @@ public class Singleton {
     public Player player3;
 
     private Singleton(){
-        this.player1=new Player();
-        this.player2=new Player();
-        this.player3=new Player();
+        this.player1=new Player(1);
+        this.player2=new Player(2);
+        this.player3=new Player(3);
     }
 
     public static Singleton getInstance(){
@@ -40,9 +40,6 @@ public class Singleton {
     public void setPlayer2(Player player2){
         this.player2= player2;
     }
-
-
-
-
+    public Player getPlayer3(){return player3;}
 }
 

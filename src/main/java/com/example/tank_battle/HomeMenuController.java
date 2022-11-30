@@ -23,6 +23,7 @@ public class HomeMenuController {
 
     @FXML
     void scores(ActionEvent event) {
+        //System.out.println("RICO SEMEN");
         GameMain.showWindow("scores.fxml");
         Stage currentStage = (Stage) playButton.getScene().getWindow();
         currentStage.hide();

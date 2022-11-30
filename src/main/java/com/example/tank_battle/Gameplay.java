@@ -317,6 +317,21 @@ public class Gameplay implements Initializable {
                     }
                 }
         ).start();
+        new Thread(
+                () -> {
+                    while (isRunning) {
+                        Platform.runLater(() -> {
+                            bulletsAI(false);
+                        });
+                        //Sleep (Mimiendo)
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                }
+        ).start();
     }
 
     private void explosionAnimation() {
@@ -682,29 +697,45 @@ public class Gameplay implements Initializable {
                 }
             }
         }
-
-    }
-
-   /*private void bulletInPlayer1(){
-        for(int i=0; i<bulletsPlayer2.size(); i++){
-            Bullet b= bulletsPlayer2.get(i);
-
-            double c1= b.pos.x-player1.pos.x;
-            double c2= b.pos.y-player1.pos.y;
-            double distance = Math.sqrt(Math.pow(c1, 2) + Math.pow(c2, 2));
-            if(distance<27) {
-                diedPlayer1++;
-                if(diedPlayer1==3){
-                    System.out.println("HPPPPP");
-                    //player1=null;
+        for (Obstacle o: obstacles) {
+            for (Bullet b: bulletsPlayer3) {
+                if (b.getHitBox().intersects( o.getY(), o.getX(),50, 50)){
+                    bulletsPlayer3.remove(b);
+                    obstacles.remove(o);
                 }
             }
         }
-    }*/
+
+    }
+
 
    InputStream is = getClass().getResourceAsStream("/fonts/Pixeboy.ttf");
     private Font pixeman21 = Font.loadFont(is, 21.0);
 
+    public void bulletsAI(boolean isNear){
+        if(player3.isColliding || isNear){
+            Bullet bullet = new Bullet(canvas, gc, new Vector(player3.pos.x, player3.pos.y ), new Vector(2.5*player3.direction.x, 2.5*player3.direction.y ), 1);
+            bulletsPlayer3.add(bullet);
+            player3.numBullets--;
+            switch (player3.numBullets){
+                case 4:
+                    b5cpu.setImage(withoutBullet);
+                    break;
+                case 3:
+                    b4cpu.setImage(withoutBullet);
+                    break;
+                case 2:
+                    b3cpu.setImage(withoutBullet);
+                    break;
+                case 1:
+                    b2cpu.setImage(withoutBullet);
+                    break;
+                case 0:
+                    b1cpu.setImage(withoutBullet);
+                    break;
+            }
+        }
+    }
     public void controlAI(){
         double dxp1=player1.pos.x-player3.pos.x;
         double dyp1=player1.pos.y-player3.pos.y;
@@ -727,7 +758,17 @@ public class Gameplay implements Initializable {
             player3.direction.x=componentX/rule;
             player3.direction.y=componentY/rule;
         }
-        player3.moveForward();
+        player3.isColliding=false;
+        for (int i = 0; i < obstacles.size(); i++) {
+            if (obstacles.get(i).getHitBox().intersects(player3.pos.x- player3.direction.x -15 , player3.pos.y- player3.direction.y -15, 30, 30 )){
+                player3.isColliding=true;
+            }
+        }
+        if (!player3.isColliding&&distancep1>60&&distancep2>60) player3.moveForward();
+        System.out.println(distancep2);
+        if(distancep1<100||distancep2<100) {
+            System.out.println("SAPOHPTAA");
+            bulletsAI(true);}
     }
 
     private void setFonts(){

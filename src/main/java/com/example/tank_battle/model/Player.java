@@ -21,6 +21,8 @@ public class Player {
     public Vector direction;
     public int numBullets;
     public int numLifes;
+    public boolean isColliding=false;
+    public boolean isEnemy;
     public int type;
 
     public Player(int type ){

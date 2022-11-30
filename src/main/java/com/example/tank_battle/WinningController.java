@@ -33,14 +33,14 @@ public class WinningController implements Initializable {
 
     @FXML
     void cancelA(ActionEvent event) {
+        GameMain.showWindow("scores.fxml");
         GameMain.hideWindow("winning.fxml");
         GameMain.hideWindow("gameCanvas.fxml");
-        GameMain.showWindow("scores.fxml");
     }
 
     @FXML
     void play(ActionEvent event) {
-        GameMain.showWindow("addNames.fxml");
+        GameMain.showTransparentWindow("addNames.fxml");
     }
 
     @Override

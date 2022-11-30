@@ -25,13 +25,13 @@ public class GameMain extends Application {
     public static void hideWindow(String fxml){
         if(fxml.equals("homeMenu.fxml")){
             homeScreen.hide();
-        } else if (fxml.equals("gameCanvas.fxml")) {
+        } else if (fxml.equals("gameCanvas.fxml")&& gamePlay!=null) {
             gamePlay.hide();
         } else if (fxml.equals("addNames.fxml")) {
             addNames.hide();
         }else if (fxml.equals("scores.fxml")) {
             scores.hide();
-        }else if (fxml.equals("winning.fxml")) {
+        }else if (fxml.equals("winning.fxml")&& winning!=null) {
             winning.hide();
         }
     }

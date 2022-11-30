@@ -12,7 +12,26 @@ public class Singleton {
     public Player player2;
     public Player player3;
     public String winningTeam;
+
+    public AudioInputStream getAudioInput() {
+        return audioInput;
+    }
+
+    public void setAudioInput(AudioInputStream audioInput) {
+        this.audioInput = audioInput;
+    }
+
     private AudioInputStream audioInput;
+
+    public File getMusicPath() {
+        return musicPath;
+    }
+
+    public void setMusicPath(String path) {
+        this.musicPath = new File(path);
+    }
+
+    private File musicPath;
     private Clip clip;
 
     private Singleton(){
@@ -22,22 +41,7 @@ public class Singleton {
         this.player3.isEnemy=true;
 
         //String uri = GameMain.class.getResource("explosion.wav").getPath();
-        File musicPath = new File("src/main/resources/com/example/tank_battle/explosion.wav");
-        if(musicPath.exists()){
-            try {
-                audioInput = AudioSystem.getAudioInputStream(musicPath);
-                clip = AudioSystem.getClip();
-                clip.open(audioInput);
-            } catch (UnsupportedAudioFileException e) {
-                throw new RuntimeException(e);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } catch (LineUnavailableException e) {
-                throw new RuntimeException(e);
-            }
-        }else {
-            System.out.println("No existe");
-        }
+        musicPath = new File("src/main/resources/com/example/tank_battle/explosion.wav");
 
     }
 
@@ -55,8 +59,23 @@ public class Singleton {
     }
 
     public void playSound(){
-        clip.start();
-        clip.loop(1);
+        if(musicPath.exists()){
+            try {
+                audioInput = AudioSystem.getAudioInputStream(musicPath);
+                clip = AudioSystem.getClip();
+                clip.open(audioInput);
+                clip.start();
+                clip.loop(1);
+            } catch (UnsupportedAudioFileException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (LineUnavailableException e) {
+                throw new RuntimeException(e);
+            }
+        }else {
+            System.out.println("No existe");
+        }
     }
 
     public Player getPlayer1(){

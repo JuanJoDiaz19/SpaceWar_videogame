@@ -4,6 +4,7 @@ import com.example.tank_battle.control.Singleton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -49,11 +50,20 @@ public class NamesController implements Initializable {
 
     @FXML
     void play(ActionEvent event) {
-        Stage currentStage = (Stage) cancelBTN.getScene().getWindow();
-        Singleton.getInstance().createPlayers(p1Name.getText(), p2Name.getText(),p3Name.getText());
-        GameMain.showWindow("gameCanvas.fxml");
-        currentStage.hide();
-        GameMain.hideWindow("homeMenu.fxml");
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        if(!p1Name.getText().equals("")&&!p2Name.getText().equals("")&&!p3Name.getText().equals("")){
+            Stage currentStage = (Stage) cancelBTN.getScene().getWindow();
+            Singleton.getInstance().createPlayers(p1Name.getText(), p2Name.getText(),p3Name.getText());
+            GameMain.hideWindow("gameCanvas.fxml");
+            GameMain.showWindow("gameCanvas.fxml");
+            currentStage.hide();
+            GameMain.hideWindow("homeMenu.fxml");
+        }else {
+            alert.setTitle("Error!");
+            alert.setHeaderText("You need to complete all fields");
+            alert.showAndWait();
+        }
+
 
     }
 

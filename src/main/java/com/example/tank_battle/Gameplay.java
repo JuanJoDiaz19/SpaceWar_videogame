@@ -163,7 +163,7 @@ public class Gameplay implements Initializable {
     private Image withRedBullet;
     private Image withBlueBullet;
     private Image withoutBullet;
-    private Image withHealth;
+    private Image withYellowBullet;
     private Image withoutHealth;
 
     private Image exp1;
@@ -198,8 +198,8 @@ public class Gameplay implements Initializable {
         //Loading the images of the bullets
         withRedBullet = new Image("file:"+ GameMain.class.getResource("redBulletH.png").getPath());
         withBlueBullet= new Image("file:"+ GameMain.class.getResource("blueBulletH.png").getPath());
+        withYellowBullet= new Image("file:"+ GameMain.class.getResource("blueBulletH.png").getPath());
         withoutBullet= new Image("file:"+ GameMain.class.getResource("emptyBulletH.png").getPath());
-        withHealth = new Image("file:"+ GameMain.class.getResource("life.png").getPath());
         withoutHealth = new Image("file:"+ GameMain.class.getResource("noLife.png").getPath());
         //Loading the images of the explotion
 
@@ -262,11 +262,36 @@ public class Gameplay implements Initializable {
         Singleton.getInstance().getPlayer2().setTank("tank2.png");
         Singleton.getInstance().getPlayer3().setGc(canvas.getGraphicsContext2D());
         Singleton.getInstance().getPlayer3().setTank("tank3.png");
+
+
         player1=Singleton.getInstance().getPlayer1();
         player2=Singleton.getInstance().getPlayer2();
         player3 = Singleton.getInstance().getPlayer3();
+
+        player1.numLifes=5;
+        player2.numLifes=5;
+        player3.numLifes=5;
+
+        player1.numBullets=5;
+        player2.numBullets=5;
+        player3.numBullets=5;
+
+        player1.pos.x=250;
+        player1.pos.y=250;
+        player2.pos.x=750;
+        player2.pos.y=250;
+        player3.pos.x=500;
+        player3.pos.y=500;
+
+        player1.direction.x=1;
+        player1.direction.y=0;
+        player2.direction.x=-1;
+        player2.direction.y=0;
+        player3.direction.x=0;
+        player3.direction.y=1;
         draw();
     }
+
 
     public void draw() {
         new Thread(
@@ -350,6 +375,11 @@ public class Gameplay implements Initializable {
                             Thread.sleep(3500);
                             if(player3.numBullets==0){
                                 player3.numBullets=5;
+                                b1cpu.setImage(withYellowBullet);
+                                b2cpu.setImage(withYellowBullet);
+                                b3cpu.setImage(withYellowBullet);
+                                b4cpu.setImage(withYellowBullet);
+                                b5cpu.setImage(withYellowBullet);
                             }
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);
@@ -371,6 +401,7 @@ public class Gameplay implements Initializable {
         Scoreboard.getInstance().insert(new Player(out));
         if(!out.equals("")){
             Singleton.getInstance().winningTeam=out;
+            GameMain.hideWindow("winning.fxml");
             GameMain.showTransparentWindow("winning.fxml");
 
         }
@@ -429,6 +460,7 @@ public class Gameplay implements Initializable {
                 bulletsPlayer1.remove(b);
                 player2.numLifes--;
                 if (player2.numLifes == 0)isPlayer2Exploded = true;
+                Singleton.getInstance().setMusicPath("src/main/resources/com/example/tank_battle/explosion.wav");
                 Singleton.getInstance().playSound();
                 switch (player2.numLifes){
                         case 4:
@@ -456,6 +488,7 @@ public class Gameplay implements Initializable {
                 bulletsPlayer1.remove(b);
                 player3.numLifes--;
                 if (player3.numLifes == 0)isPlayer3Exploded = true;
+                Singleton.getInstance().setMusicPath("src/main/resources/com/example/tank_battle/explosion.wav");
                 Singleton.getInstance().playSound();
                 switch (player3.numLifes){
                     case 4:
@@ -486,6 +519,7 @@ public class Gameplay implements Initializable {
                 bulletsPlayer2.remove(b);
                 player1.numLifes--;
                 if (player1.numLifes == 0 )isPlayer1Exploded = true;
+                Singleton.getInstance().setMusicPath("src/main/resources/com/example/tank_battle/explosion.wav");
                 Singleton.getInstance().playSound();
 
                 switch (player1.numLifes){
@@ -514,6 +548,7 @@ public class Gameplay implements Initializable {
             if(p3distance < 20){
                 bulletsPlayer2.remove(b);
                 player3.numLifes--;
+                Singleton.getInstance().setMusicPath("src/main/resources/com/example/tank_battle/explosion.wav");
                 Singleton.getInstance().playSound();
                 if (player3.numLifes == 0 )isPlayer3Exploded = true;
                 switch (player3.numLifes){
@@ -543,10 +578,10 @@ public class Gameplay implements Initializable {
             double p1c2 = b.pos.y - player1.pos.y;
             double p1distance = Math.sqrt(Math.pow(p1c1, 2) + Math.pow(p1c2, 2));
             if(p1distance < 20){
+                Singleton.getInstance().setMusicPath("src/main/resources/com/example/tank_battle/explosion.wav");
                 Singleton.getInstance().playSound();
                 bulletsPlayer3.remove(b);
                 player1.numLifes--;
-                //Singleton.getInstance().playSound("explosion.wav");
                 if (player1.numLifes == 0)isPlayer1Exploded = true;
                 switch (player1.numLifes){
                     case 4:
@@ -572,8 +607,8 @@ public class Gameplay implements Initializable {
             double p2c1 = b.pos.x - player2.pos.x;
             double p2c2 = b.pos.y - player2.pos.y;
             double p2distance = Math.sqrt(Math.pow(p2c1, 2) + Math.pow(p2c2, 2));
-            //Singleton.getInstance().playSound("explosion.wav");
             if( p2distance < 20){
+                Singleton.getInstance().setMusicPath("src/main/resources/com/example/tank_battle/explosion.wav");
                 Singleton.getInstance().playSound();
                 bulletsPlayer3.remove(b);
                 player2.numLifes--;
@@ -827,6 +862,7 @@ public class Gameplay implements Initializable {
                 if (b.getHitBox().intersects( o.getY(), o.getX(),50, 50)){
                     bulletsPlayer1.remove(b);
                     obstacles.remove(o);
+                    Singleton.getInstance().setMusicPath("src/main/resources/com/example/tank_battle/explosion.wav");
                     Singleton.getInstance().playSound();
                 }
             }
@@ -837,6 +873,7 @@ public class Gameplay implements Initializable {
                 if (b.getHitBox().intersects( o.getY(), o.getX(),50, 50)){
                     bulletsPlayer2.remove(b);
                     obstacles.remove(o);
+                    Singleton.getInstance().setMusicPath("src/main/resources/com/example/tank_battle/explosion.wav");
                     Singleton.getInstance().playSound();
                 }
             }
@@ -846,7 +883,8 @@ public class Gameplay implements Initializable {
                 if (b.getHitBox().intersects( o.getY(), o.getX(),50, 50)){
                     bulletsPlayer3.remove(b);
                     obstacles.remove(o);
-                    //Singleton.getInstance().playSound("explosion.wav");
+                    Singleton.getInstance().setMusicPath("src/main/resources/com/example/tank_battle/explosion.wav");
+                    Singleton.getInstance().playSound();
                 }
             }
         }

@@ -33,28 +33,35 @@
                                     <Insets bottom="8.0" top="15.0" />
                                  </VBox.margin>
                               </ImageView>
-                              <VBox prefHeight="200.0" prefWidth="100.0">
+                              <VBox prefHeight="200.0" prefWidth="288.0">
                                  <children>
-                                    <Label text="Player 1 name:" textFill="WHITE">
+                                    <Label fx:id="label1" text="Player 1 name:" textFill="WHITE">
                                        <VBox.margin>
                                           <Insets left="15.0" />
                                        </VBox.margin>
                                        <font>
                                           <Font size="14.0" />
                                        </font>
+                                       <padding>
+                                          <Insets bottom="5.0" />
+                                       </padding>
                                     </Label>
-                                    <TextField fx:id="p1Name" promptText="Name" style="-fx-background-color: #5e5e5e; -fx-text-fill: #FFFFFF;">
-                                       <VBox.margin>
-                                          <Insets left="10.0" right="10.0" />
-                                       </VBox.margin>
-                                    </TextField>
+                                    <VBox prefHeight="13.0" prefWidth="288.0">
+                                       <children>
+                                          <TextField fx:id="p1Name" promptText="Name" style="-fx-background-color: #5e5e5e; -fx-text-fill: #FFFFFF;">
+                                             <VBox.margin>
+                                                <Insets left="10.0" right="10.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                       </children>
+                                    </VBox>
                                  </children>
                               </VBox>
-                              <VBox prefHeight="200.0" prefWidth="100.0">
+                              <VBox prefHeight="200.0" prefWidth="288.0">
                                  <children>
-                                    <Label text="Player 2 name:" textFill="WHITE">
+                                    <Label fx:id="label2" text="Player 2 name:" textFill="WHITE">
                                        <VBox.margin>
-                                          <Insets left="15.0" />
+                                          <Insets bottom="5.0" left="15.0" />
                                        </VBox.margin>
                                        <font>
                                           <Font size="14.0" />
@@ -69,9 +76,9 @@
                               </VBox>
                               <VBox prefHeight="200.0" prefWidth="100.0">
                                  <children>
-                                    <Label text="Player 3 name:" textFill="WHITE">
+                                    <Label fx:id="label3" text="Player 3 name:" textFill="WHITE">
                                        <VBox.margin>
-                                          <Insets left="15.0" />
+                                          <Insets bottom="5.0" left="15.0" />
                                        </VBox.margin>
                                        <font>
                                           <Font size="14.0" />
@@ -114,7 +121,7 @@
                                        </HBox.margin></Button>
                                  </children>
                                  <VBox.margin>
-                                    <Insets bottom="20.0" />
+                                    <Insets bottom="15.0" top="5.0" />
                                  </VBox.margin>
                               </HBox>
                            </children>

@@ -23,7 +23,7 @@
                <children>
                   <Label fx:id="labelP1" prefHeight="23.0" prefWidth="82.0" text="Player 1">
                      <font>
-                        <Font size="21.0" />
+                        <Font name="Algerian" size="21.0" />
                      </font>
                   </Label>
                   <HBox alignment="CENTER" prefHeight="10.0" prefWidth="234.0">

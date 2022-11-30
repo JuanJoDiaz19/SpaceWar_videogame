@@ -27,8 +27,14 @@ public class Singleton {
         return musicPath;
     }
 
+    private int flag;
     public void setMusicPath(String path) {
         this.musicPath = new File(path);
+        if(path.contains("explosion.wav")){
+            flag=1;
+        }if(path.contains("IntroSong.wav") || path.contains("GameplaySong.wav")){
+            flag=1000;
+        }
     }
 
     private File musicPath;
@@ -65,7 +71,7 @@ public class Singleton {
                 clip = AudioSystem.getClip();
                 clip.open(audioInput);
                 clip.start();
-                clip.loop(1);
+                clip.loop(flag);
             } catch (UnsupportedAudioFileException e) {
                 throw new RuntimeException(e);
             } catch (IOException e) {
@@ -76,6 +82,9 @@ public class Singleton {
         }else {
             System.out.println("No existe");
         }
+    }
+    public void stopSound(){
+        clip.stop();
     }
 
     public Player getPlayer1(){

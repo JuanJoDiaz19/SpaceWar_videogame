@@ -193,9 +193,9 @@ public class Gameplay implements Initializable {
         animationExplosionPlayer3 = 12;
 
         //Loading the images of the bullets
-        withRedBullet = new Image("file:"+ GameMain.class.getResource("redBullet.png").getPath());
-        withBlueBullet= new Image("file:"+ GameMain.class.getResource("blueBullet.png").getPath());
-        withoutBullet= new Image("file:"+ GameMain.class.getResource("projectileEmpty.png").getPath());
+        withRedBullet = new Image("file:"+ GameMain.class.getResource("redBulletH.png").getPath());
+        withBlueBullet= new Image("file:"+ GameMain.class.getResource("blueBulletH.png").getPath());
+        withoutBullet= new Image("file:"+ GameMain.class.getResource("emptyBulletH.png").getPath());
         withHealth = new Image("file:"+ GameMain.class.getResource("life.png").getPath());
         withoutHealth = new Image("file:"+ GameMain.class.getResource("noLife.png").getPath());
         //Loading the images of the explotion

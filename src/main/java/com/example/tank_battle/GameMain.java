@@ -17,6 +17,8 @@ public class GameMain extends Application {
     private static Stage addNames;
     private static Stage homeScreen;
     private static Stage gamePlay;
+    private static Stage scores;
+
     @Override
     public void start(Stage stage)  {
         showWindow("homeMenu.fxml");
@@ -27,6 +29,8 @@ public class GameMain extends Application {
         } else if (fxml.equals("gameCanvas.fxml")) {
             gamePlay.hide();
         } else if (fxml.equals("addNames.fxml")) {
+            addNames.hide();
+        }else if (fxml.equals("scores.fxml")) {
             addNames.hide();
         }
     }
@@ -45,6 +49,11 @@ public class GameMain extends Application {
                 gamePlay.setTitle("SpaceWar");
                 gamePlay.setScene(scene);
                 gamePlay.show();
+            }else if(fxml.equals("scores.fxml")) {
+                scores = new Stage();
+                scores.setTitle("SpaceWar");
+                scores.setScene(scene);
+                scores.show();
             }
         }catch (IOException ex){
             ex.printStackTrace();

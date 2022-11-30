@@ -139,8 +139,8 @@ public class ScoreController implements Initializable {
     @FXML
     void returnMain(ActionEvent event) {
         GameMain.showWindow("homeMenu.fxml");
-
         Stage current = (Stage) score9.getScene().getWindow();
+        Scoreboard.getInstance().saveInformation();
         current.hide();
 
     }

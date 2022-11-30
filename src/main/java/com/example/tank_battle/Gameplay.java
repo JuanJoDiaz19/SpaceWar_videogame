@@ -23,6 +23,7 @@ import javafx.util.Pair;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 public class Gameplay implements Initializable {
@@ -298,7 +299,7 @@ public class Gameplay implements Initializable {
                                 bulletsPlayer3.get(i).draw();
                             }
 
-
+                            controlAI();
                             //Explosion animation
                             explosionAnimation();
                             //Colisiones
@@ -681,6 +682,7 @@ public class Gameplay implements Initializable {
                 }
             }
         }
+
     }
 
    /*private void bulletInPlayer1(){
@@ -704,7 +706,28 @@ public class Gameplay implements Initializable {
     private Font pixeman21 = Font.loadFont(is, 21.0);
 
     public void controlAI(){
-        player3.pos.x+=15;
+        double dxp1=player1.pos.x-player3.pos.x;
+        double dyp1=player1.pos.y-player3.pos.y;
+        double distancep1 = Math.sqrt(Math.pow(dxp1, 2) + Math.pow(dyp1, 2));
+        double dxp2=player2.pos.x-player3.pos.x;
+        double dyp2=player2.pos.y-player3.pos.y;
+        double distancep2 = Math.sqrt(Math.pow(dxp2, 2) + Math.pow(dyp2, 2));
+        double componentX,componentY;
+        double rule =0;
+        if(distancep1<distancep2){
+            componentX = (player1.pos.x-player3.pos.x);
+            componentY = (player1.pos.y-player3.pos.y);
+            rule = Math.sqrt(Math.pow(componentX, 2) + Math.pow(componentY, 2));
+            player3.direction.x=componentX/rule;
+            player3.direction.y=componentY/rule;
+        }else {
+            componentX = (player2.pos.x-player3.pos.x);
+            componentY = (player2.pos.y-player3.pos.y);
+            rule = Math.sqrt(Math.pow(componentX, 2) + Math.pow(componentY, 2));
+            player3.direction.x=componentX/rule;
+            player3.direction.y=componentY/rule;
+        }
+        player3.moveForward();
     }
 
     private void setFonts(){

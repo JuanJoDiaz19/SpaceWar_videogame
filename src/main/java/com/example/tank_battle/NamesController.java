@@ -6,7 +6,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
+
+import java.io.InputStream;
 
 public class NamesController {
 
@@ -27,6 +30,7 @@ public class NamesController {
     @FXML
     private Button playBTN;
 
+
     @FXML
     void cancelA(ActionEvent event) {
         Stage currentStage = (Stage) cancelBTN.getScene().getWindow();
@@ -42,5 +46,4 @@ public class NamesController {
         GameMain.hideWindow("homeMenu.fxml");
 
     }
-
 }

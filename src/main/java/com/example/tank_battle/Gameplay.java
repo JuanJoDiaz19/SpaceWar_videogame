@@ -17,8 +17,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
 import javafx.util.Pair;
 
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -697,5 +699,18 @@ public class Gameplay implements Initializable {
             }
         }
     }*/
+
+   InputStream is = getClass().getResourceAsStream("/fonts/Pixeboy.ttf");
+    private Font pixeman21 = Font.loadFont(is, 21.0);
+
+    public void controlAI(){
+        player3.pos.x+=15;
+    }
+
+    private void setFonts(){
+        labelP1.setFont(pixeman21);
+        labelP2.setFont(pixeman21);
+        labelCPU.setFont(pixeman21);
+    }
 
 }

@@ -1,6 +1,6 @@
 # SpaceWar
 
-###Contributors:
+### Contributors:
 * Juan Jose Diaz
 * Santiago Espinosa
 * Mateo Silva 

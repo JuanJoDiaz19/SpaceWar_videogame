@@ -1,4 +1,4 @@
-2;3
-3;2
-chancla;2
-a;1
+santiago;4
+juan;3
+ana;2
+mateo;1

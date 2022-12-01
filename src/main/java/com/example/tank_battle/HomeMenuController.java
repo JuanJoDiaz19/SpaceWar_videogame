@@ -1,6 +1,7 @@
 package com.example.tank_battle;
 
 import com.example.tank_battle.control.Singleton;
+import com.example.tank_battle.model.Scoreboard;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -28,7 +29,7 @@ public class HomeMenuController implements Initializable {
 
     @FXML
     void scores(ActionEvent event) {
-        //System.out.println("RICO SEMEN");
+        Scoreboard.getInstance().loadInformation();
         GameMain.showWindow("scores.fxml");
         Stage currentStage = (Stage) playButton.getScene().getWindow();
         currentStage.hide();
@@ -36,8 +37,8 @@ public class HomeMenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Singleton.getInstance().stopSound();
         Singleton.getInstance().setMusicPath("src/main/resources/com/example/tank_battle/IntroSong.wav");
         Singleton.getInstance().playSound();
-        //Singleton.getInstance().getAudioInput().;
     }
 }

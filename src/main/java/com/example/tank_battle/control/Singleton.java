@@ -27,8 +27,14 @@ public class Singleton {
         return musicPath;
     }
 
+    private int flag;
     public void setMusicPath(String path) {
         this.musicPath = new File(path);
+        if(path.contains("explosion.wav")){
+            flag=1;
+        }if(path.contains("IntroSong.wav") || path.contains("GameplaySong.wav")){
+            flag=1000;
+        }
     }
 
     private File musicPath;
@@ -39,6 +45,7 @@ public class Singleton {
         this.player2=new Player(2);
         this.player3=new Player(3);
         this.player3.isEnemy=true;
+
 
         //String uri = GameMain.class.getResource("explosion.wav").getPath();
         musicPath = new File("src/main/resources/com/example/tank_battle/explosion.wav");
@@ -65,7 +72,7 @@ public class Singleton {
                 clip = AudioSystem.getClip();
                 clip.open(audioInput);
                 clip.start();
-                clip.loop(1);
+                clip.loop(flag);
             } catch (UnsupportedAudioFileException e) {
                 throw new RuntimeException(e);
             } catch (IOException e) {
@@ -76,6 +83,12 @@ public class Singleton {
         }else {
             System.out.println("No existe");
         }
+    }
+    public void stopSound(){
+        if(clip!=null){
+            clip.stop();
+        }
+
     }
 
     public Player getPlayer1(){

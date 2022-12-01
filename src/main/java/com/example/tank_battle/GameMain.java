@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -42,16 +43,19 @@ public class GameMain extends Application {
             Scene scene = new Scene(node);
             if(fxml.equals("homeMenu.fxml")) {
                 homeScreen = new Stage();
+                homeScreen.getIcons().add(new Image(GameMain.class.getResourceAsStream( "icon.png" )));
                 homeScreen.setTitle("SpaceWar");
                 homeScreen.setScene(scene);
                 homeScreen.show();
             } else if(fxml.equals("gameCanvas.fxml")) {
                 gamePlay = new Stage();
+                gamePlay.getIcons().add(new Image(GameMain.class.getResourceAsStream( "icon.png" )));
                 gamePlay.setTitle("SpaceWar");
                 gamePlay.setScene(scene);
                 gamePlay.show();
             }else if(fxml.equals("scores.fxml")) {
                 scores = new Stage();
+                scores.getIcons().add(new Image(GameMain.class.getResourceAsStream( "icon.png" )));
                 scores.setTitle("SpaceWar");
                 scores.setScene(scene);
                 scores.show();

@@ -41,14 +41,14 @@ public class Player {
     }
 
     public Player(String name,Canvas canvas, String path){
-        this.name=name;
+        this.name= name.toLowerCase();
         gc = canvas.getGraphicsContext2D();
         String uri = "file:"+ GameMain.class.getResource(path).getPath();
         tank = new Image(uri);
     }
 
     public Player(String name){
-        this.name = name;
+        this.name = name.toLowerCase();
         gamesWon = 1;
     }
 

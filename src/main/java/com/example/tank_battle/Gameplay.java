@@ -198,7 +198,7 @@ public class Gameplay implements Initializable {
         //Loading the images of the bullets
         withRedBullet = new Image("file:"+ GameMain.class.getResource("redBulletH.png").getPath());
         withBlueBullet= new Image("file:"+ GameMain.class.getResource("blueBulletH.png").getPath());
-        withYellowBullet= new Image("file:"+ GameMain.class.getResource("blueBulletH.png").getPath());
+        withYellowBullet= new Image("file:"+ GameMain.class.getResource("yellowBulletH.png").getPath());
         withoutBullet= new Image("file:"+ GameMain.class.getResource("emptyBulletH.png").getPath());
         withoutHealth = new Image("file:"+ GameMain.class.getResource("noLife.png").getPath());
         //Loading the images of the explotion

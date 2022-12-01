@@ -1,5 +1,6 @@
 package com.example.tank_battle;
 
+import com.example.tank_battle.control.Singleton;
 import com.example.tank_battle.model.Pair;
 import com.example.tank_battle.model.Player;
 import com.example.tank_battle.model.Scoreboard;
@@ -142,6 +143,7 @@ public class ScoreController implements Initializable {
         Stage current = (Stage) score9.getScene().getWindow();
         Scoreboard.getInstance().saveInformation();
         current.hide();
+        Singleton.getInstance().stopSound();
 
     }
 
@@ -153,6 +155,10 @@ public class ScoreController implements Initializable {
         drawBackground();
         setFonts();
         updateSb();
+        Singleton.getInstance().stopSound();
+        Singleton.getInstance().setMusicPath("src/main/resources/com/example/tank_battle/IntroSong.wav");
+        Singleton.getInstance().playSound();
+
     }
 
     private GraphicsContext gc;
@@ -249,4 +255,5 @@ public class ScoreController implements Initializable {
         }
 
     }
+
 }

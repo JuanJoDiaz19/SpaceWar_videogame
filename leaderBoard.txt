@@ -1,1 +1,5 @@
-Juancho;5
+Juan;3
+Ana;3
+Santiago;2
+Mateo;2
+

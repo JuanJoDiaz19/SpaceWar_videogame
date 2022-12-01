@@ -57,6 +57,9 @@ public class NamesController implements Initializable {
             GameMain.hideWindow("gameCanvas.fxml");
             GameMain.showWindow("gameCanvas.fxml");
             currentStage.hide();
+            Singleton.getInstance().stopSound();
+            Singleton.getInstance().setMusicPath("src/main/resources/com/example/tank_battle/GameplaySong.wav");
+            Singleton.getInstance().playSound();
             GameMain.hideWindow("homeMenu.fxml");
         }else {
             alert.setTitle("Error!");

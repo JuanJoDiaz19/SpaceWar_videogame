@@ -6,7 +6,7 @@
 * Santiago Espinosa
 * Mateo Silva 
 
-This is a videogame made with javaFX inspired in Tank Battle but with the theme of space wars. This project was made as the final midterm of Algorithms and programming II. In this videogame we used concepts as thread programming, vector operations ans colissions. Also we added a lot of effort to the graphics, textures and sounds of the game. The game consist on 2 players and 1 CPU each one with 5 lives, and the object is to distroy the others spaceship.
+This is a videogame made with javaFX inspired in Tank Battle but with the theme of space wars. This project was made as the final midterm of Algorithms and programming II. In this videogame we used concepts as thread programming, vector operations and colissions. Also we added a lot of effort to the graphics, textures and sounds of the game. The game consist on 2 players and 1 CPU each one with 5 lives, and the object is to destroy the others spaceship.
 
 #### Controls:
 * Player 1:
